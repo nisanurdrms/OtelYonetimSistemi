@@ -16,7 +16,7 @@ namespace OtelYonetimSistemi.DAL
 
         public bool OdaEkle(Oda oda)
         {
-            using (MySqlConnection conn = dbBaglanti.baglantiGetir())
+            using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
             {
                 try
                 {
@@ -41,7 +41,7 @@ namespace OtelYonetimSistemi.DAL
 
         public Oda OdaGetir(int odaID)
         {
-            using (MySqlConnection conn = dbBaglanti.baglantiGetir())
+            using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
             {
                 try
                 {
@@ -76,7 +76,7 @@ namespace OtelYonetimSistemi.DAL
         public List<Oda> TumOdalariGetir()
         {
             List<Oda> odalar = new List<Oda>();
-            using (MySqlConnection conn = dbBaglanti.baglantiGetir())
+            using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
             {
                 try
                 {
@@ -109,7 +109,7 @@ namespace OtelYonetimSistemi.DAL
 
         public bool OdaGuncelle(Oda oda)
         {
-            using (MySqlConnection conn = dbBaglanti.baglantiGetir())
+            using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
             {
                 try
                 {
@@ -135,7 +135,7 @@ namespace OtelYonetimSistemi.DAL
 
         public bool OdaSil(int odaID)
         {
-            using (MySqlConnection conn = dbBaglanti.baglantiGetir())
+            using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
             {
                 try
                 {

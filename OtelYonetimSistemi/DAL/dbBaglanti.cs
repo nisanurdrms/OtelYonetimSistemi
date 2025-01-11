@@ -12,20 +12,15 @@ namespace OtelYonetimSistemi.DAL
 {
     public static class dbBaglanti
     {
-      
-
-        public static MySqlConnection baglantiGetir()
-        {
-            MySqlConnection baglanti = new MySqlConnection("Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;");
-            return baglanti;
-        }
-
-        
-
         public static MySqlConnection BaglantiGetir()
         {
-            throw new NotImplementedException();
+           
+            string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            return connection;
         }
     }
+
+    
 }
 

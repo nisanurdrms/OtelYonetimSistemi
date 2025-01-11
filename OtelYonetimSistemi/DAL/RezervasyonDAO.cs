@@ -13,7 +13,7 @@ namespace OtelYonetimSistemi.DAL
     {
         public bool RezervasyonEkle(Rezervasyon rezervasyon)
         {
-            using (MySqlConnection conn = dbBaglanti.baglantiGetir())
+            using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
             {
                 try
                 {
@@ -41,7 +41,7 @@ namespace OtelYonetimSistemi.DAL
 
         public Rezervasyon RezervasyonGetir(int rezervasyonID)
         {
-            using (MySqlConnection conn = dbBaglanti.baglantiGetir())
+            using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
             {
                 try
                 {
