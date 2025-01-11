@@ -51,6 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\dbBaglanti.cs" />
+    <Compile Include="DAL\FaturaDAO.cs" />
+    <Compile Include="DAL\MusteriDAO.cs" />
+    <Compile Include="DAL\OdaDAO.cs" />
+    <Compile Include="DAL\RezervasyonDAO.cs" />
     <Compile Include="DOMAIN\Fatura.cs" />
     <Compile Include="DOMAIN\Musteri.cs" />
     <Compile Include="DOMAIN\Oda.cs" />
@@ -64,6 +68,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SERVICE\faturaService.cs" />
+    <Compile Include="SERVICE\musteriService.cs" />
+    <Compile Include="SERVICE\odaService.cs" />
+    <Compile Include="SERVICE\rezervasyonService.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -89,8 +97,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SERVICE\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,15 +10,19 @@ using System.Windows.Forms;
 
 namespace OtelYonetimSistemi.DAL
 {
-    class dbBaglanti
+    public static class dbBaglanti
     {
-        public MySqlConnection baglantiGetir()
+      
+
+        public static MySqlConnection baglantiGetir()
         {
             MySqlConnection baglanti = new MySqlConnection("Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;");
             return baglanti;
         }
 
-        internal MySqlConnection BaglantiGetir()
+        
+
+        public static MySqlConnection BaglantiGetir()
         {
             throw new NotImplementedException();
         }
