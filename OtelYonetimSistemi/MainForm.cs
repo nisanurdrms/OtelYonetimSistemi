@@ -44,7 +44,7 @@ namespace OtelYonetimSistemi
                 OdaService odaService = new OdaService();
                 var odalar = odaService.TumOdalariGetir();
 
-                foreach (var oda in odalar)
+                foreach (Oda oda in odalar)
                 {
                     Button btnOda = new Button
                     {
@@ -80,6 +80,11 @@ namespace OtelYonetimSistemi
             {
                 Application.Exit();
             }
+        }
+
+        private void btnOda_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

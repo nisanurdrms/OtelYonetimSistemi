@@ -41,6 +41,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlOdalar = new System.Windows.Forms.Panel();
+            this.btnOda = new System.Windows.Forms.Button();
             this.lblOdaDurum = new System.Windows.Forms.Label();
             this.lblAktifRezervasyon = new System.Windows.Forms.Label();
             this.flpOdalar = new System.Windows.Forms.FlowLayoutPanel();
@@ -51,7 +52,6 @@
             this.GirisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CikisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnOda = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.pnlOdalar.SuspendLayout();
@@ -163,6 +163,16 @@
             this.pnlOdalar.Size = new System.Drawing.Size(800, 622);
             this.pnlOdalar.TabIndex = 3;
             // 
+            // btnOda
+            // 
+            this.btnOda.Location = new System.Drawing.Point(623, 256);
+            this.btnOda.Name = "btnOda";
+            this.btnOda.Size = new System.Drawing.Size(75, 23);
+            this.btnOda.TabIndex = 7;
+            this.btnOda.Text = "button1";
+            this.btnOda.UseVisualStyleBackColor = true;
+            this.btnOda.Click += new System.EventHandler(this.btnOda_Click);
+            // 
             // lblOdaDurum
             // 
             this.lblOdaDurum.AutoSize = true;
@@ -266,15 +276,6 @@
             this.Durum.MinimumWidth = 6;
             this.Durum.Name = "Durum";
             this.Durum.ReadOnly = true;
-            // 
-            // btnOda
-            // 
-            this.btnOda.Location = new System.Drawing.Point(623, 256);
-            this.btnOda.Name = "btnOda";
-            this.btnOda.Size = new System.Drawing.Size(75, 23);
-            this.btnOda.TabIndex = 7;
-            this.btnOda.Text = "button1";
-            this.btnOda.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
