@@ -8,11 +8,11 @@ using OtelYonetimSistemi.DOMAIN;
 
 namespace OtelYonetimSistemi.SERVICE
 {
-    public class odaService
+    public class OdaService
     {
-        private readonly OdaDAO odaDAO;
+        public OdaDAO odaDAO;
 
-        public odaService()
+        public OdaService()
         {
             odaDAO = new OdaDAO();
         }
@@ -44,6 +44,11 @@ namespace OtelYonetimSistemi.SERVICE
         public List<Oda> MusaitOdalariGetir()
         {
             return odaDAO.TumOdalariGetir().Where(o => !o.DolulukDurumu && o.OdaTemizlik).ToList();
+        }
+
+        internal IEnumerable<object> TumOdalariGetir()
+        {
+            throw new NotImplementedException();
         }
     }
 

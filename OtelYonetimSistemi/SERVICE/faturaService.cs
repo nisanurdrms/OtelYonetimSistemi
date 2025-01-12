@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OtelYonetimSistemi.SERVICE
 {
-    internal class faturaService
+    internal class FaturaService
     {
     }
 }

@@ -8,12 +8,12 @@ using OtelYonetimSistemi.DOMAIN;
 
 namespace OtelYonetimSistemi.SERVICE
 {
-    public class rezervasyonService
+    public class RezervasyonService
     {
         private readonly RezervasyonDAO rezervasyonDAO;
         private readonly OdaDAO odaDAO;
 
-        public rezervasyonService()
+        public RezervasyonService()
         {
             rezervasyonDAO = new RezervasyonDAO();
             odaDAO = new OdaDAO();
