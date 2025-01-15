@@ -55,6 +55,7 @@
     <Compile Include="DAL\MusteriDAO.cs" />
     <Compile Include="DAL\OdaDAO.cs" />
     <Compile Include="DAL\RezervasyonDAO.cs" />
+    <Compile Include="DAL\YoneticiDAO.cs" />
     <Compile Include="DOMAIN\Fatura.cs" />
     <Compile Include="DOMAIN\Musteri.cs" />
     <Compile Include="DOMAIN\Oda.cs" />
@@ -78,7 +79,7 @@
     <Compile Include="SERVICE\MusteriService.cs" />
     <Compile Include="SERVICE\OdaService.cs" />
     <Compile Include="SERVICE\RezervasyonService.cs" />
-    <Compile Include="SERVICE\yoneticiService.cs" />
+    <Compile Include="SERVICE\YoneticiService.cs" />
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

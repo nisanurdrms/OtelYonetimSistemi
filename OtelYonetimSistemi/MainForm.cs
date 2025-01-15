@@ -86,5 +86,15 @@ namespace OtelYonetimSistemi
         {
 
         }
+
+        private void lblOdaDurum_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAktifRezervasyon_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
