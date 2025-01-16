@@ -9,7 +9,7 @@ namespace OtelYonetimSistemi.DAL
 {
     public class YoneticiDAO
     {
-        private readonly string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!";
+        private readonly string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123";
 
         public (string adminName, string adminSifre) KullaniciGetir(string adminName)
         {

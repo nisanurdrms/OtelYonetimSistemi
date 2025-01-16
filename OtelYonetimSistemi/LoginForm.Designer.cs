@@ -33,8 +33,8 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.txtKullaniciAdi = new System.Windows.Forms.TextBox();
-            this.txtSifre = new System.Windows.Forms.TextBox();
+            this.txtadminName = new System.Windows.Forms.TextBox();
+            this.txtadminSifre = new System.Windows.Forms.TextBox();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
@@ -96,25 +96,25 @@
             this.lblPassword.TabIndex = 3;
             this.lblPassword.Text = "Şifre";
             // 
-            // txtKullaniciAdi
+            // txtadminName
             // 
-            this.txtKullaniciAdi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtKullaniciAdi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtKullaniciAdi.Location = new System.Drawing.Point(30, 225);
-            this.txtKullaniciAdi.Name = "txtKullaniciAdi";
-            this.txtKullaniciAdi.Size = new System.Drawing.Size(300, 34);
-            this.txtKullaniciAdi.TabIndex = 4;
+            this.txtadminName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtadminName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtadminName.Location = new System.Drawing.Point(30, 225);
+            this.txtadminName.Name = "txtadminName";
+            this.txtadminName.Size = new System.Drawing.Size(300, 34);
+            this.txtadminName.TabIndex = 4;
             // 
-            // txtSifre
+            // txtadminSifre
             // 
-            this.txtSifre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSifre.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtSifre.Location = new System.Drawing.Point(30, 295);
-            this.txtSifre.Name = "txtSifre";
-            this.txtSifre.PasswordChar = '.';
-            this.txtSifre.Size = new System.Drawing.Size(300, 34);
-            this.txtSifre.TabIndex = 5;
-            this.txtSifre.UseSystemPasswordChar = true;
+            this.txtadminSifre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtadminSifre.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtadminSifre.Location = new System.Drawing.Point(30, 295);
+            this.txtadminSifre.Name = "txtadminSifre";
+            this.txtadminSifre.PasswordChar = '.';
+            this.txtadminSifre.Size = new System.Drawing.Size(300, 34);
+            this.txtadminSifre.TabIndex = 5;
+            this.txtadminSifre.UseSystemPasswordChar = true;
             // 
             // picLogo
             // 
@@ -129,10 +129,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1202, 766);
+            this.ClientSize = new System.Drawing.Size(377, 468);
             this.Controls.Add(this.picLogo);
-            this.Controls.Add(this.txtSifre);
-            this.Controls.Add(this.txtKullaniciAdi);
+            this.Controls.Add(this.txtadminSifre);
+            this.Controls.Add(this.txtadminName);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblTitle);
@@ -153,8 +153,8 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.TextBox txtKullaniciAdi;
-        private System.Windows.Forms.TextBox txtSifre;
+        private System.Windows.Forms.TextBox txtadminName;
+        private System.Windows.Forms.TextBox txtadminSifre;
         private System.Windows.Forms.PictureBox picLogo;
     }
 }

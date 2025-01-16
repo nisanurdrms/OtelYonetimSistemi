@@ -15,67 +15,70 @@ namespace OtelYonetimSistemi
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void LoginForm_Load(object sender, EventArgs e)
         {
             try
             {
-                MySqlConnection baglanti = dbBaglanti.BaglantiGetir();  
-                MessageBox.Show("Bağlantı başarılı!");
-                baglanti.Close();
+                using (MySqlConnection baglanti = dbBaglanti.BaglantiGetir())
+                {
+                    baglanti.Open();
+                    MessageBox.Show("Veritabanı bağlantısı başarılı!", "Bağlantı Testi");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Bağlantı hatası: " + ex.Message);
+                MessageBox.Show("Veritabanı bağlantı hatası: " + ex.Message, "Hata",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
             
-            txtKullaniciAdi.Focus();
+            txtadminName.Focus();
         }
 
-        
+
         private void btnGiris_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtKullaniciAdi.Text))
+            if (string.IsNullOrEmpty(txtadminName.Text))
             {
                 MessageBox.Show("Kullanıcı adı boş olamaz!", "Uyarı",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtKullaniciAdi.Focus();
+                txtadminName.Focus();
                 return;
             }
 
-            if (string.IsNullOrEmpty(txtSifre.Text))
+            if (string.IsNullOrEmpty(txtadminSifre.Text))
             {
                 MessageBox.Show("Şifre boş olamaz!", "Uyarı",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtSifre.Focus();
+                txtadminSifre.Focus();
                 return;
             }
 
-            try
+            else
             {
-                YoneticiService yoneticiService = new YoneticiService();
-                if (yoneticiService.GirisKontrol(txtKullaniciAdi.Text, txtSifre.Text))
+
+                try
                 {
-                    MainForm mainForm = new MainForm();
-                    this.Hide();
-                    mainForm.ShowDialog();
-                    this.Close();
+                    YoneticiService yoneticiService = new YoneticiService();
+                    if (yoneticiService.GirisKontrol(txtadminName.Text, txtadminSifre.Text))
+                    {
+                        MainForm mainForm = new MainForm();
+                        this.Hide();
+                        mainForm.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Kullanıcı adı veya şifre hatalı!", "Hata",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtadminSifre.Clear();
+                        txtadminSifre.Focus();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Kullanıcı adı veya şifre hatalı!", "Hata",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtSifre.Clear();
-                    txtSifre.Focus();
+                    MessageBox.Show("Giriş işlemi sırasında hata oluştu: " + ex.Message,
+                        "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Giriş işlemi sırasında hata oluştu: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

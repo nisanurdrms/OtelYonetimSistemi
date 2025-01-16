@@ -71,14 +71,14 @@
             this.menuStrip.Location = new System.Drawing.Point(10, 10);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip.Size = new System.Drawing.Size(1237, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1232, 28);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
             // menuDosya
             // 
             this.menuDosya.Name = "menuDosya";
-            this.menuDosya.Size = new System.Drawing.Size(64, 26);
+            this.menuDosya.Size = new System.Drawing.Size(64, 24);
             this.menuDosya.Text = "Dosya";
             // 
             // menuYonetim
@@ -88,7 +88,7 @@
             this.menuMusteriYonetimi,
             this.menuRezervasyonYonetimi});
             this.menuYonetim.Name = "menuYonetim";
-            this.menuYonetim.Size = new System.Drawing.Size(77, 26);
+            this.menuYonetim.Size = new System.Drawing.Size(77, 24);
             this.menuYonetim.Text = "Yönetim";
             // 
             // menuOdaYonetimi
@@ -115,7 +115,7 @@
             this.menuDolulukRaporu,
             this.menuGelirRaporu});
             this.menuRaporlar.Name = "menuRaporlar";
-            this.menuRaporlar.Size = new System.Drawing.Size(80, 26);
+            this.menuRaporlar.Size = new System.Drawing.Size(80, 24);
             this.menuRaporlar.Text = "Raporlar";
             // 
             // menuDolulukRaporu
@@ -133,7 +133,7 @@
             // menuCikis
             // 
             this.menuCikis.Name = "menuCikis";
-            this.menuCikis.Size = new System.Drawing.Size(53, 26);
+            this.menuCikis.Size = new System.Drawing.Size(53, 24);
             this.menuCikis.Text = "Çıkış";
             this.menuCikis.Click += new System.EventHandler(this.menuCikis_Click);
             // 
@@ -142,9 +142,9 @@
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
-            this.statusStrip.Location = new System.Drawing.Point(10, 660);
+            this.statusStrip.Location = new System.Drawing.Point(10, 645);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1237, 26);
+            this.statusStrip.Size = new System.Drawing.Size(1232, 26);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -161,7 +161,7 @@
             this.pnlOdalar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlOdalar.Location = new System.Drawing.Point(10, 38);
             this.pnlOdalar.Name = "pnlOdalar";
-            this.pnlOdalar.Size = new System.Drawing.Size(302, 622);
+            this.pnlOdalar.Size = new System.Drawing.Size(282, 607);
             this.pnlOdalar.TabIndex = 3;
             // 
             // btnOda
@@ -189,7 +189,7 @@
             // 
             this.lblAktifRezervasyon.AutoSize = true;
             this.lblAktifRezervasyon.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblAktifRezervasyon.Location = new System.Drawing.Point(33, 36);
+            this.lblAktifRezervasyon.Location = new System.Drawing.Point(40, 20);
             this.lblAktifRezervasyon.Name = "lblAktifRezervasyon";
             this.lblAktifRezervasyon.Size = new System.Drawing.Size(235, 31);
             this.lblAktifRezervasyon.TabIndex = 7;
@@ -203,10 +203,9 @@
             this.flpOdalar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flpOdalar.Controls.Add(this.pnlRezervasyonlar);
             this.flpOdalar.Controls.Add(this.dgvRezervayonlar);
-            this.flpOdalar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpOdalar.Location = new System.Drawing.Point(312, 38);
+            this.flpOdalar.Location = new System.Drawing.Point(298, 38);
             this.flpOdalar.Name = "flpOdalar";
-            this.flpOdalar.Size = new System.Drawing.Size(935, 622);
+            this.flpOdalar.Size = new System.Drawing.Size(946, 622);
             this.flpOdalar.TabIndex = 4;
             // 
             // pnlRezervasyonlar
@@ -215,14 +214,13 @@
             this.pnlRezervasyonlar.Location = new System.Drawing.Point(3, 3);
             this.pnlRezervasyonlar.Name = "pnlRezervasyonlar";
             this.pnlRezervasyonlar.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlRezervasyonlar.Size = new System.Drawing.Size(281, 618);
+            this.pnlRezervasyonlar.Size = new System.Drawing.Size(311, 618);
             this.pnlRezervasyonlar.TabIndex = 4;
             // 
             // dgvRezervayonlar
             // 
             this.dgvRezervayonlar.AllowUserToAddRows = false;
             this.dgvRezervayonlar.AllowUserToDeleteRows = false;
-            this.dgvRezervayonlar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRezervayonlar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRezervayonlar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OdaNo,
@@ -230,14 +228,14 @@
             this.GirisTarihi,
             this.CikisTarihi,
             this.Durum});
-            this.dgvRezervayonlar.Location = new System.Drawing.Point(290, 3);
+            this.dgvRezervayonlar.Location = new System.Drawing.Point(320, 3);
             this.dgvRezervayonlar.MultiSelect = false;
             this.dgvRezervayonlar.Name = "dgvRezervayonlar";
             this.dgvRezervayonlar.ReadOnly = true;
             this.dgvRezervayonlar.RowHeadersWidth = 51;
             this.dgvRezervayonlar.RowTemplate.Height = 24;
             this.dgvRezervayonlar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRezervayonlar.Size = new System.Drawing.Size(611, 615);
+            this.dgvRezervayonlar.Size = new System.Drawing.Size(594, 615);
             this.dgvRezervayonlar.TabIndex = 5;
             // 
             // OdaNo
@@ -247,6 +245,7 @@
             this.OdaNo.MinimumWidth = 20;
             this.OdaNo.Name = "OdaNo";
             this.OdaNo.ReadOnly = true;
+            this.OdaNo.Width = 25;
             // 
             // MusteriAdSoyad
             // 
@@ -255,6 +254,7 @@
             this.MusteriAdSoyad.MinimumWidth = 35;
             this.MusteriAdSoyad.Name = "MusteriAdSoyad";
             this.MusteriAdSoyad.ReadOnly = true;
+            this.MusteriAdSoyad.Width = 119;
             // 
             // GirisTarihi
             // 
@@ -263,6 +263,7 @@
             this.GirisTarihi.MinimumWidth = 6;
             this.GirisTarihi.Name = "GirisTarihi";
             this.GirisTarihi.ReadOnly = true;
+            this.GirisTarihi.Width = 113;
             // 
             // CikisTarihi
             // 
@@ -271,6 +272,7 @@
             this.CikisTarihi.MinimumWidth = 6;
             this.CikisTarihi.Name = "CikisTarihi";
             this.CikisTarihi.ReadOnly = true;
+            this.CikisTarihi.Width = 94;
             // 
             // Durum
             // 
@@ -279,12 +281,13 @@
             this.Durum.MinimumWidth = 6;
             this.Durum.Name = "Durum";
             this.Durum.ReadOnly = true;
+            this.Durum.Width = 207;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1257, 696);
+            this.ClientSize = new System.Drawing.Size(1252, 681);
             this.Controls.Add(this.flpOdalar);
             this.Controls.Add(this.pnlOdalar);
             this.Controls.Add(this.statusStrip);
