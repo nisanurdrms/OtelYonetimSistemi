@@ -61,16 +61,16 @@
     <Compile Include="DOMAIN\Oda.cs" />
     <Compile Include="DOMAIN\Rezervasyon.cs" />
     <Compile Include="DOMAIN\Yonetici.cs" />
-    <Compile Include="LoginForm.cs">
+    <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="UI\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -80,10 +80,16 @@
     <Compile Include="SERVICE\OdaService.cs" />
     <Compile Include="SERVICE\RezervasyonService.cs" />
     <Compile Include="SERVICE\YoneticiService.cs" />
-    <EmbeddedResource Include="LoginForm.resx">
+    <Compile Include="UI\OdaDetayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OdaDetayForm.Designer.cs">
+      <DependentUpon>OdaDetayForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -95,6 +101,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\OdaDetayForm.resx">
+      <DependentUpon>OdaDetayForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
