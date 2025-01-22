@@ -16,6 +16,7 @@ namespace OtelYonetimSistemi
     public partial class MainForm : Form
     {
         private OdaDetayForm odaDetayForm;
+        private RezervasyonForm rezervasyonForm;
         public MainForm()
         {
             InitializeComponent();
@@ -109,6 +110,19 @@ namespace OtelYonetimSistemi
             else
             {
                 odaDetayForm.BringToFront(); 
+            }
+        }
+
+        private void menuRezervasyonYonetimi_Click(object sender, EventArgs e)
+        {
+            if (rezervasyonForm == null || rezervasyonForm.IsDisposed)
+            {
+                rezervasyonForm = new RezervasyonForm();
+                rezervasyonForm.Show();
+            }
+            else
+            {
+                rezervasyonForm.BringToFront();
             }
         }
     }

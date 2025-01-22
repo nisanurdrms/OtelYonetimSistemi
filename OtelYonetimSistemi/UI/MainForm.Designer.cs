@@ -109,6 +109,7 @@
             this.menuRezervasyonYonetimi.Name = "menuRezervasyonYonetimi";
             this.menuRezervasyonYonetimi.Size = new System.Drawing.Size(236, 26);
             this.menuRezervasyonYonetimi.Text = "Rezervasyon Yönetimi";
+            this.menuRezervasyonYonetimi.Click += new System.EventHandler(this.menuRezervasyonYonetimi_Click);
             // 
             // menuRaporlar
             // 
