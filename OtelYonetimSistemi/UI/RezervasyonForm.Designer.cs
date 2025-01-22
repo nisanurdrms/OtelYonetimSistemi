@@ -39,6 +39,9 @@
             this.lblOdaTipi = new System.Windows.Forms.Label();
             this.rtbOzet = new System.Windows.Forms.RichTextBox();
             this.lblOzet = new System.Windows.Forms.Label();
+            this.cmbOdaNumarasi = new System.Windows.Forms.ComboBox();
+            this.lblOdaNumarasi = new System.Windows.Forms.Label();
+            this.lblToplamTutar = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // dtpGirisTarihi
@@ -59,10 +62,9 @@
             // 
             this.cmbOdaTipi.FormattingEnabled = true;
             this.cmbOdaTipi.Items.AddRange(new object[] {
-            "Tek Kişilik",
-            "Çift Kişilik",
-            "Dört Kişilik",
-            "Süit"});
+            "Standart",
+            "Deluxe",
+            "Suit"});
             this.cmbOdaTipi.Location = new System.Drawing.Point(195, 269);
             this.cmbOdaTipi.Name = "cmbOdaTipi";
             this.cmbOdaTipi.Size = new System.Drawing.Size(135, 24);
@@ -74,6 +76,7 @@
             this.txtAdSoyad.Name = "txtAdSoyad";
             this.txtAdSoyad.Size = new System.Drawing.Size(233, 22);
             this.txtAdSoyad.TabIndex = 3;
+            this.txtAdSoyad.TextChanged += new System.EventHandler(this.txtAdSoyad_TextChanged);
             // 
             // btnRezervasyonYap
             // 
@@ -136,11 +139,40 @@
             this.lblOzet.TabIndex = 11;
             this.lblOzet.Text = "Son İşlem";
             // 
+            // cmbOdaNumarasi
+            // 
+            this.cmbOdaNumarasi.FormattingEnabled = true;
+            this.cmbOdaNumarasi.Location = new System.Drawing.Point(195, 320);
+            this.cmbOdaNumarasi.Name = "cmbOdaNumarasi";
+            this.cmbOdaNumarasi.Size = new System.Drawing.Size(135, 24);
+            this.cmbOdaNumarasi.TabIndex = 12;
+            // 
+            // lblOdaNumarasi
+            // 
+            this.lblOdaNumarasi.AutoSize = true;
+            this.lblOdaNumarasi.Location = new System.Drawing.Point(85, 323);
+            this.lblOdaNumarasi.Name = "lblOdaNumarasi";
+            this.lblOdaNumarasi.Size = new System.Drawing.Size(94, 16);
+            this.lblOdaNumarasi.TabIndex = 13;
+            this.lblOdaNumarasi.Text = "Oda Numarası";
+            // 
+            // lblToplamTutar
+            // 
+            this.lblToplamTutar.AutoSize = true;
+            this.lblToplamTutar.Location = new System.Drawing.Point(505, 410);
+            this.lblToplamTutar.Name = "lblToplamTutar";
+            this.lblToplamTutar.Size = new System.Drawing.Size(88, 16);
+            this.lblToplamTutar.TabIndex = 14;
+            this.lblToplamTutar.Text = "Toplam Tutar";
+            // 
             // RezervasyonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1180, 608);
+            this.Controls.Add(this.lblToplamTutar);
+            this.Controls.Add(this.lblOdaNumarasi);
+            this.Controls.Add(this.cmbOdaNumarasi);
             this.Controls.Add(this.lblOzet);
             this.Controls.Add(this.rtbOzet);
             this.Controls.Add(this.lblOdaTipi);
@@ -172,5 +204,8 @@
         private System.Windows.Forms.Label lblOdaTipi;
         private System.Windows.Forms.RichTextBox rtbOzet;
         private System.Windows.Forms.Label lblOzet;
+        private System.Windows.Forms.ComboBox cmbOdaNumarasi;
+        private System.Windows.Forms.Label lblOdaNumarasi;
+        private System.Windows.Forms.Label lblToplamTutar;
     }
 }
