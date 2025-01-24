@@ -3,8 +3,22 @@
 
 
 
+
+
+
+
+
 1- Use-Case Diyagramı
 ![Ekran görüntüsü 2025-01-24 224459](https://github.com/user-attachments/assets/c58875da-cdca-499a-9a04-d2b02ebb0433)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18,8 +32,26 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 3- ER Diyagramı
 ![Ekran görüntüsü 2025-01-24 224548](https://github.com/user-attachments/assets/70973366-0e75-4839-b6ab-d6458f903337)
+
+
+
+
+
+
+
 
 
 
@@ -31,15 +63,41 @@ Login Formu
 
 
 
+
+
+
+
+
+
 ![Ekran görüntüsü 2025-01-24 225112](https://github.com/user-attachments/assets/7354f6bb-7233-47cb-8624-d6110284b762)
 MainForm
  MainForm genel bilgilerin görüldüğü yerdir. Diğer detay formlarına ve istenen belgelere buradan ulaşılır.
 
 
 
+
+
+
+
+
+
+
+
+
+
 ![Ekran görüntüsü 2025-01-24 225131](https://github.com/user-attachments/assets/ffc1b25b-7261-4cf8-9228-76949163bf12)
 OdaForm
  Oda ekleme, silme, güncelleme, temizlik ve doluluk durumlarına müdahele buradan yapılabilir. Veri tabanıyla diğer formlara bağlıdır. Burada ekleyeceğiniz odalar rezervasyon ve müşteri formlarında da eklenir veya silinir.
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -51,9 +109,28 @@ MusteriForm
 
 
 
+
+
+
+
+
+
+
+
+
 ![Ekran görüntüsü 2025-01-24 225153](https://github.com/user-attachments/assets/dd1c27d2-867e-4220-9efd-c07cbddf02c6)
 RezervasyonForm
  Rezervasyon işlemleri bu formda yapılır. Diğer formlarla entegredir.
+
+
+
+
+
+
+
+
+
+
 
 
 
