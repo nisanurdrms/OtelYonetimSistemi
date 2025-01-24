@@ -15,7 +15,7 @@ Raporlar: Rezervasyonlar, doluluk oranları ve diğer önemli veriler hakkında 
 Bu proje,  C# dili ile, Windows Forms Apps (.NET Framework) kullanılarak ve phpMyAdmin veritabanı ile geliştirilmiştir ve otel yönetimini daha verimli hale getirmeyi amaçlamaktadır.
 
 
-
+Projenin Youtube linki: https://youtu.be/1kdIbX-K6Bk?si=I1KYU5CRZ2kZQu0L
 
 
 
