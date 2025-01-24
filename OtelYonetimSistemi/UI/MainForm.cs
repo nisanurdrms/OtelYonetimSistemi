@@ -10,7 +10,9 @@ using System.Windows.Forms;
 using OtelYonetimSistemi.SERVICE;
 using OtelYonetimSistemi.DOMAIN;
 using OtelYonetimSistemi.UI;
-using OtelYonetimSistemi.DAL;  
+using OtelYonetimSistemi.DAL;
+using MySql;
+using MySql.Data.MySqlClient;
 
 namespace OtelYonetimSistemi
 {
@@ -19,6 +21,10 @@ namespace OtelYonetimSistemi
         private OdaDetayForm odaDetayForm;
         private RezervasyonForm rezervasyonForm;
         private MusteriForm musteriForm;
+        private DolulukRaporu dolulukRaporu;
+        private Timer timer;
+
+       
         public MainForm()
         {
             InitializeComponent();
@@ -26,14 +32,77 @@ namespace OtelYonetimSistemi
                 this.Text = "Otel Yönetim Sistemi";
                 this.WindowState = FormWindowState.Maximized;
                 this.StartPosition = FormStartPosition.CenterScreen;
+                CustomizeDataGridView();
+                LoadGeneralData();
+                timer = new Timer();
+                timer.Interval = 1000; // 1 saniyede bir çalışacak
+                timer.Tick += Timer_Tick; // Her tetiklemede Timer_Tick metodu çalışacak
+                timer.Start(); // Timer'ı başlat
             }
+
+            
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // StatusLabel üzerine tarih ve saat yaz
+            statusLabelDateTime.Text = DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss");
+        }
+
+        private void LoadGeneralData()
+        {
+            string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;";
+            string query = "SELECT rezervasyonID, musteriID, odaID, faturaID, girisTarihi, cikisTarihi, rezervasyonDurumu, toplamTutar FROM rezervasyon";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+
+                    adapter.Fill(dataTable);
+                    dgvGenel.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hata: " + ex.Message);
+                }
+            }
+        }
+
+        private void LoadRooms()
+        {
+            string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;"; 
+            string query = "SELECT * FROM oda"; 
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                dgvOda.DataSource = dataTable; 
+            }
+        }
+
+        private void CustomizeDataGridView()
+        {
+            dgvGenel.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvGenel.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvGenel.AllowUserToAddRows = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            OdalariYukle();
+            //OdalariYukle();
             RezervasyonlariYukle();
-            lblStatus.Text = $"Son güncelleme: {DateTime.Now:dd.MM.yyyy HH:mm:ss}";
+            LoadRooms();
+            
         }
 
        private void RezervasyonlariYukle()
@@ -43,9 +112,9 @@ namespace OtelYonetimSistemi
                 RezervasyonDAO rezervasyonDAO = new RezervasyonDAO();
                 var rezervasyonlar = rezervasyonDAO.RezervasyonGetir();
 
-                dgvRezervasyonlar.DataSource = rezervasyonlar; 
-                dgvRezervasyonlar.Columns["OdaID"].Visible = false; 
-                dgvRezervasyonlar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvGenel.DataSource = rezervasyonlar; 
+                dgvGenel.Columns["OdaID"].Visible = false; 
+                dgvGenel.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (Exception ex)
             {
@@ -55,7 +124,7 @@ namespace OtelYonetimSistemi
         }
        
 
-        private void OdalariYukle()
+       /* private void OdalariYukle()
         {
             try
             {
@@ -89,9 +158,9 @@ namespace OtelYonetimSistemi
                 MessageBox.Show("Odalar yüklenirken hata oluştu: " + ex.Message,
                     "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
+        }*/
 
-                    private void menuCikis_Click(object sender, EventArgs e)
+        private void menuCikis_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Programdan çıkmak istediğinizden emin misiniz?",
            "Çıkış", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -154,5 +223,34 @@ namespace OtelYonetimSistemi
             }
         }
 
+        private void dgvGenel_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnOdaYenile_Click(object sender, EventArgs e)
+        {
+            LoadRooms();
+        }
+
+        private void btnRezervasyon_Click(object sender, EventArgs e)
+        {
+            LoadGeneralData();
+        }
+
+        private void menuDolulukRaporu_Click(object sender, EventArgs e)
+        {
+            if (dolulukRaporu == null || dolulukRaporu.IsDisposed)
+            {
+
+                dolulukRaporu = new DolulukRaporu();
+                dolulukRaporu.Show();
+
+            }
+            else
+            {
+                dolulukRaporu.BringToFront();
+            }
+        }
     }
 }

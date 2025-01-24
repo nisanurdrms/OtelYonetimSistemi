@@ -39,21 +39,15 @@
             this.menuGelirRaporu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCikis = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pnlOdalar = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnOda = new System.Windows.Forms.Button();
-            this.lblOdaDolulukDurumu = new System.Windows.Forms.Label();
-            this.lblAktifRezervasyon = new System.Windows.Forms.Label();
-            this.flpOdalar = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlRezervasyonlar = new System.Windows.Forms.Panel();
-            this.dgvRezervasyonlar = new System.Windows.Forms.DataGridView();
+            this.dgvGenel = new System.Windows.Forms.DataGridView();
+            this.dgvOda = new System.Windows.Forms.DataGridView();
+            this.btnOdaYenile = new System.Windows.Forms.Button();
+            this.btnRezervasyon = new System.Windows.Forms.Button();
+            this.statusLabelDateTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            this.pnlOdalar.SuspendLayout();
-            this.flpOdalar.SuspendLayout();
-            this.pnlRezervasyonlar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRezervasyonlar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGenel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOda)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -120,8 +114,9 @@
             // menuDolulukRaporu
             // 
             this.menuDolulukRaporu.Name = "menuDolulukRaporu";
-            this.menuDolulukRaporu.Size = new System.Drawing.Size(195, 26);
+            this.menuDolulukRaporu.Size = new System.Drawing.Size(224, 26);
             this.menuDolulukRaporu.Text = "Doluluk Raporu";
+            this.menuDolulukRaporu.Click += new System.EventHandler(this.menuDolulukRaporu_Click);
             // 
             // menuGelirRaporu
             // 
@@ -140,106 +135,69 @@
             // 
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblStatus});
+            this.statusLabelDateTime});
             this.statusStrip.Location = new System.Drawing.Point(10, 623);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(1112, 26);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // lblStatus
+            // dgvGenel
             // 
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(70, 20);
-            this.lblStatus.Text = "lbl Status";
+            this.dgvGenel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvGenel.Location = new System.Drawing.Point(601, 44);
+            this.dgvGenel.Name = "dgvGenel";
+            this.dgvGenel.RowHeadersWidth = 51;
+            this.dgvGenel.RowTemplate.Height = 24;
+            this.dgvGenel.Size = new System.Drawing.Size(508, 407);
+            this.dgvGenel.TabIndex = 5;
+            this.dgvGenel.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGenel_CellContentClick);
             // 
-            // pnlOdalar
+            // dgvOda
             // 
-            this.pnlOdalar.Controls.Add(this.button1);
-            this.pnlOdalar.Controls.Add(this.btnOda);
-            this.pnlOdalar.Controls.Add(this.lblOdaDolulukDurumu);
-            this.pnlOdalar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlOdalar.Location = new System.Drawing.Point(10, 38);
-            this.pnlOdalar.Name = "pnlOdalar";
-            this.pnlOdalar.Size = new System.Drawing.Size(282, 585);
-            this.pnlOdalar.TabIndex = 3;
+            this.dgvOda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOda.Location = new System.Drawing.Point(13, 44);
+            this.dgvOda.Name = "dgvOda";
+            this.dgvOda.RowHeadersWidth = 51;
+            this.dgvOda.RowTemplate.Height = 24;
+            this.dgvOda.Size = new System.Drawing.Size(521, 407);
+            this.dgvOda.TabIndex = 6;
             // 
-            // button1
+            // btnOdaYenile
             // 
-            this.button1.Location = new System.Drawing.Point(186, 176);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnOdaYenile.Location = new System.Drawing.Point(13, 468);
+            this.btnOdaYenile.Name = "btnOdaYenile";
+            this.btnOdaYenile.Size = new System.Drawing.Size(185, 31);
+            this.btnOdaYenile.TabIndex = 7;
+            this.btnOdaYenile.Text = "Oda Tablosunu Güncelle";
+            this.btnOdaYenile.UseVisualStyleBackColor = true;
+            this.btnOdaYenile.Click += new System.EventHandler(this.btnOdaYenile_Click);
             // 
-            // btnOda
+            // btnRezervasyon
             // 
-            this.btnOda.Location = new System.Drawing.Point(623, 256);
-            this.btnOda.Name = "btnOda";
-            this.btnOda.Size = new System.Drawing.Size(75, 23);
-            this.btnOda.TabIndex = 7;
-            this.btnOda.Text = "button1";
-            this.btnOda.UseVisualStyleBackColor = true;
+            this.btnRezervasyon.Location = new System.Drawing.Point(601, 468);
+            this.btnRezervasyon.Name = "btnRezervasyon";
+            this.btnRezervasyon.Size = new System.Drawing.Size(240, 31);
+            this.btnRezervasyon.TabIndex = 8;
+            this.btnRezervasyon.Text = "Rezervasyon Tablosunu Güncelle";
+            this.btnRezervasyon.UseVisualStyleBackColor = true;
+            this.btnRezervasyon.Click += new System.EventHandler(this.btnRezervasyon_Click);
             // 
-            // lblOdaDolulukDurumu
+            // statusLabelDateTime
             // 
-            this.lblOdaDolulukDurumu.AutoSize = true;
-            this.lblOdaDolulukDurumu.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblOdaDolulukDurumu.Location = new System.Drawing.Point(6, 24);
-            this.lblOdaDolulukDurumu.Name = "lblOdaDolulukDurumu";
-            this.lblOdaDolulukDurumu.Size = new System.Drawing.Size(265, 31);
-            this.lblOdaDolulukDurumu.TabIndex = 6;
-            this.lblOdaDolulukDurumu.Text = "Oda Doluluk Durumları";
-            // 
-            // lblAktifRezervasyon
-            // 
-            this.lblAktifRezervasyon.AutoSize = true;
-            this.lblAktifRezervasyon.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblAktifRezervasyon.Location = new System.Drawing.Point(40, 20);
-            this.lblAktifRezervasyon.Name = "lblAktifRezervasyon";
-            this.lblAktifRezervasyon.Size = new System.Drawing.Size(235, 31);
-            this.lblAktifRezervasyon.TabIndex = 7;
-            this.lblAktifRezervasyon.Text = "Aktif Rezervasyonlar";
-            // 
-            // flpOdalar
-            // 
-            this.flpOdalar.AutoScroll = true;
-            this.flpOdalar.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.flpOdalar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flpOdalar.Controls.Add(this.pnlRezervasyonlar);
-            this.flpOdalar.Controls.Add(this.dgvRezervasyonlar);
-            this.flpOdalar.Location = new System.Drawing.Point(289, 40);
-            this.flpOdalar.Name = "flpOdalar";
-            this.flpOdalar.Size = new System.Drawing.Size(840, 583);
-            this.flpOdalar.TabIndex = 4;
-            // 
-            // pnlRezervasyonlar
-            // 
-            this.pnlRezervasyonlar.Controls.Add(this.lblAktifRezervasyon);
-            this.pnlRezervasyonlar.Location = new System.Drawing.Point(3, 3);
-            this.pnlRezervasyonlar.Name = "pnlRezervasyonlar";
-            this.pnlRezervasyonlar.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlRezervasyonlar.Size = new System.Drawing.Size(311, 581);
-            this.pnlRezervasyonlar.TabIndex = 4;
-            // 
-            // dgvRezervasyonlar
-            // 
-            this.dgvRezervasyonlar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRezervasyonlar.Location = new System.Drawing.Point(320, 3);
-            this.dgvRezervasyonlar.Name = "dgvRezervasyonlar";
-            this.dgvRezervasyonlar.RowHeadersWidth = 51;
-            this.dgvRezervasyonlar.RowTemplate.Height = 24;
-            this.dgvRezervasyonlar.Size = new System.Drawing.Size(465, 330);
-            this.dgvRezervasyonlar.TabIndex = 5;
+            this.statusLabelDateTime.Name = "statusLabelDateTime";
+            this.statusLabelDateTime.Size = new System.Drawing.Size(151, 20);
+            this.statusLabelDateTime.Text = "toolStripStatusLabel1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 659);
-            this.Controls.Add(this.flpOdalar);
-            this.Controls.Add(this.pnlOdalar);
+            this.Controls.Add(this.btnRezervasyon);
+            this.Controls.Add(this.btnOdaYenile);
+            this.Controls.Add(this.dgvOda);
+            this.Controls.Add(this.dgvGenel);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
@@ -250,12 +208,8 @@
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.pnlOdalar.ResumeLayout(false);
-            this.pnlOdalar.PerformLayout();
-            this.flpOdalar.ResumeLayout(false);
-            this.pnlRezervasyonlar.ResumeLayout(false);
-            this.pnlRezervasyonlar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRezervasyonlar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGenel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOda)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,11 +219,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.Panel pnlOdalar;
-        private System.Windows.Forms.FlowLayoutPanel flpOdalar;
-        private System.Windows.Forms.Panel pnlRezervasyonlar;
-        private System.Windows.Forms.Label lblOdaDolulukDurumu;
-        private System.Windows.Forms.Label lblAktifRezervasyon;
         private System.Windows.Forms.ToolStripMenuItem menuDosya;
         private System.Windows.Forms.ToolStripMenuItem menuYonetim;
         private System.Windows.Forms.ToolStripMenuItem menuRaporlar;
@@ -279,9 +228,10 @@
         private System.Windows.Forms.ToolStripMenuItem menuRezervasyonYonetimi;
         private System.Windows.Forms.ToolStripMenuItem menuDolulukRaporu;
         private System.Windows.Forms.ToolStripMenuItem menuGelirRaporu;
-        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
-        private System.Windows.Forms.Button btnOda;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dgvRezervasyonlar;
+        private System.Windows.Forms.DataGridView dgvGenel;
+        private System.Windows.Forms.DataGridView dgvOda;
+        private System.Windows.Forms.Button btnOdaYenile;
+        private System.Windows.Forms.Button btnRezervasyon;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabelDateTime;
     }
 }

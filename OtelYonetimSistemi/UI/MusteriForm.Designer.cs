@@ -53,7 +53,6 @@
             this.dgvMusteri.RowTemplate.Height = 24;
             this.dgvMusteri.Size = new System.Drawing.Size(654, 524);
             this.dgvMusteri.TabIndex = 0;
-            this.dgvMusteri.SelectionChanged += new System.EventHandler(this.dgvMusteri_SelectionChanged);
             // 
             // txtAdSoyad
             // 

@@ -61,6 +61,12 @@
     <Compile Include="DOMAIN\Oda.cs" />
     <Compile Include="DOMAIN\Rezervasyon.cs" />
     <Compile Include="DOMAIN\Yonetici.cs" />
+    <Compile Include="UI\DolulukRaporu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DolulukRaporu.Designer.cs">
+      <DependentUpon>DolulukRaporu.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     <Compile Include="UI\RezervasyonForm.Designer.cs">
       <DependentUpon>RezervasyonForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\DolulukRaporu.resx">
+      <DependentUpon>DolulukRaporu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
