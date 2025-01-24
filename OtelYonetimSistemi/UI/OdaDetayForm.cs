@@ -226,8 +226,9 @@ namespace OtelYonetimSistemi.UI
             }
         }
 
-       
+        private void lblOdaİslemleri_Click(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

@@ -41,6 +41,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlOdalar = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnOda = new System.Windows.Forms.Button();
             this.lblOdaDolulukDurumu = new System.Windows.Forms.Label();
             this.lblAktifRezervasyon = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.GirisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CikisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DolulukDurumu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.pnlOdalar.SuspendLayout();
@@ -72,14 +72,14 @@
             this.menuStrip.Location = new System.Drawing.Point(10, 10);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip.Size = new System.Drawing.Size(1112, 30);
+            this.menuStrip.Size = new System.Drawing.Size(1112, 28);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
             // menuDosya
             // 
             this.menuDosya.Name = "menuDosya";
-            this.menuDosya.Size = new System.Drawing.Size(64, 26);
+            this.menuDosya.Size = new System.Drawing.Size(64, 24);
             this.menuDosya.Text = "Dosya";
             // 
             // menuYonetim
@@ -89,7 +89,7 @@
             this.menuMusteriYonetimi,
             this.menuRezervasyonYonetimi});
             this.menuYonetim.Name = "menuYonetim";
-            this.menuYonetim.Size = new System.Drawing.Size(77, 26);
+            this.menuYonetim.Size = new System.Drawing.Size(77, 24);
             this.menuYonetim.Text = "Yönetim";
             // 
             // menuOdaYonetimi
@@ -104,6 +104,7 @@
             this.menuMusteriYonetimi.Name = "menuMusteriYonetimi";
             this.menuMusteriYonetimi.Size = new System.Drawing.Size(236, 26);
             this.menuMusteriYonetimi.Text = "Müşteri Yönetimi";
+            this.menuMusteriYonetimi.Click += new System.EventHandler(this.menuMusteriYonetimi_Click);
             // 
             // menuRezervasyonYonetimi
             // 
@@ -118,25 +119,25 @@
             this.menuDolulukRaporu,
             this.menuGelirRaporu});
             this.menuRaporlar.Name = "menuRaporlar";
-            this.menuRaporlar.Size = new System.Drawing.Size(80, 26);
+            this.menuRaporlar.Size = new System.Drawing.Size(80, 24);
             this.menuRaporlar.Text = "Raporlar";
             // 
             // menuDolulukRaporu
             // 
             this.menuDolulukRaporu.Name = "menuDolulukRaporu";
-            this.menuDolulukRaporu.Size = new System.Drawing.Size(224, 26);
+            this.menuDolulukRaporu.Size = new System.Drawing.Size(195, 26);
             this.menuDolulukRaporu.Text = "Doluluk Raporu";
             // 
             // menuGelirRaporu
             // 
             this.menuGelirRaporu.Name = "menuGelirRaporu";
-            this.menuGelirRaporu.Size = new System.Drawing.Size(224, 26);
+            this.menuGelirRaporu.Size = new System.Drawing.Size(195, 26);
             this.menuGelirRaporu.Text = "Gelir Rapporu";
             // 
             // menuCikis
             // 
             this.menuCikis.Name = "menuCikis";
-            this.menuCikis.Size = new System.Drawing.Size(53, 26);
+            this.menuCikis.Size = new System.Drawing.Size(53, 24);
             this.menuCikis.Text = "Çıkış";
             this.menuCikis.Click += new System.EventHandler(this.menuCikis_Click);
             // 
@@ -163,10 +164,19 @@
             this.pnlOdalar.Controls.Add(this.btnOda);
             this.pnlOdalar.Controls.Add(this.lblOdaDolulukDurumu);
             this.pnlOdalar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlOdalar.Location = new System.Drawing.Point(10, 40);
+            this.pnlOdalar.Location = new System.Drawing.Point(10, 38);
             this.pnlOdalar.Name = "pnlOdalar";
-            this.pnlOdalar.Size = new System.Drawing.Size(282, 583);
+            this.pnlOdalar.Size = new System.Drawing.Size(282, 585);
             this.pnlOdalar.TabIndex = 3;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(186, 176);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // btnOda
             // 
@@ -183,9 +193,9 @@
             this.lblOdaDolulukDurumu.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblOdaDolulukDurumu.Location = new System.Drawing.Point(6, 24);
             this.lblOdaDolulukDurumu.Name = "lblOdaDolulukDurumu";
-            this.lblOdaDolulukDurumu.Size = new System.Drawing.Size(273, 31);
+            this.lblOdaDolulukDurumu.Size = new System.Drawing.Size(265, 31);
             this.lblOdaDolulukDurumu.TabIndex = 6;
-            this.lblOdaDolulukDurumu.Text = "Oda DolulukDurumuları";
+            this.lblOdaDolulukDurumu.Text = "Oda Doluluk Durumları";
             // 
             // lblAktifRezervasyon
             // 
@@ -284,15 +294,6 @@
             this.DolulukDurumu.Name = "DolulukDurumu";
             this.DolulukDurumu.ReadOnly = true;
             this.DolulukDurumu.Width = 207;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(186, 176);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

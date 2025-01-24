@@ -142,6 +142,7 @@
             this.cmbOdaNumarasi.Name = "cmbOdaNumarasi";
             this.cmbOdaNumarasi.Size = new System.Drawing.Size(135, 24);
             this.cmbOdaNumarasi.TabIndex = 12;
+            this.cmbOdaNumarasi.SelectedIndexChanged += new System.EventHandler(this.cmbOdaNumarasi_SelectedIndexChanged);
             // 
             // lblOdaNumarasi
             // 

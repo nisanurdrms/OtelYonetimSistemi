@@ -17,6 +17,7 @@ namespace OtelYonetimSistemi
     {
         private OdaDetayForm odaDetayForm;
         private RezervasyonForm rezervasyonForm;
+        private MusteriForm musteriForm;
         public MainForm()
         {
             InitializeComponent();
@@ -36,19 +37,34 @@ namespace OtelYonetimSistemi
 
         private void RezervasyonlariYukle()
         {
-            throw new NotImplementedException();
+            try
+            {
+                RezervasyonDAO rezervasyonDAO = new RezervasyonDAO();
+                var rezervasyonlar = rezervasyonDAO.RezervasyonGetir();
+
+                dgvRezervasyonlar.DataSource = rezervasyonlar; // DataGridView'e bağla
+                dgvRezervasyonlar.Columns["OdaID"].Visible = false; // Gerekli olmayan kolonları gizle
+                dgvRezervasyonlar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Rezervasyonlar yüklenirken hata oluştu: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void OdalariYukle()
         {
             try
             {
-                flpOdalar.Controls.Clear();
+                flpOdalar.Controls.Clear(); // FlowLayoutPanel içeriğini temizle
                 OdaService odaService = new OdaService();
-                var odalar = odaService.TumOdalariGetir();
+                var odalar = odaService.TumOdalariGetir(); // Tüm odaları getir
 
                 foreach (Oda oda in odalar)
                 {
+                    // Oda için buton oluştur
                     Button btnOda = new Button
                     {
                         Text = $"Oda {oda.OdaNumarasi}\n{oda.OdaTipi}",
@@ -58,22 +74,16 @@ namespace OtelYonetimSistemi
                         Margin = new Padding(5),
                         FlatStyle = FlatStyle.Flat,
                         Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                        BackColor = oda.DolulukDolulukDurumuu ? Color.FromArgb(244, 67, 54) : 
-                               (!oda.OdaTemizlik ? Color.FromArgb(255, 235, 59) : 
-                               Color.FromArgb(76, 175, 80)), 
-                        ForeColor = oda.DolulukDolulukDurumuu || !oda.OdaTemizlik ? Color.White : Color.Black
+                        BackColor = oda.DolulukDurumu ? Color.FromArgb(244, 67, 54) :
+                                    (!oda.OdaTemizlik ? Color.FromArgb(255, 235, 59) :
+                                    Color.FromArgb(76, 175, 80)), // Dolu, temizlik durumlarına göre renk
+                        ForeColor = oda.DolulukDurumu || !oda.OdaTemizlik ? Color.White : Color.Black
                     };
 
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Odalar yüklenirken hata oluştu: " + ex.Message,
-                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+                    flpOdalar.Controls.Add(btnOda); // FlowLayoutPanel'e butonu ekle
 
-        private void menuCikis_Click(object sender, EventArgs e)
+
+                    private void menuCikis_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Programdan çıkmak istediğinizden emin misiniz?",
            "Çıkış", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -111,6 +121,20 @@ namespace OtelYonetimSistemi
             }
         }
 
-       
+        private void menuMusteriYonetimi_Click(object sender, EventArgs e)
+        {
+            if (musteriForm == null || musteriForm.IsDisposed)
+            {
+               
+                musteriForm = new MusteriForm();
+                musteriForm.Show();
+
+            }
+            else
+            {
+                musteriForm.BringToFront();
+            }
+        }
+
     }
 }

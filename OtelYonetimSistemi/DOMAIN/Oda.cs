@@ -10,7 +10,7 @@ namespace OtelYonetimSistemi.DOMAIN
     {
         public int OdaID { get; set; }
         public string OdaNumarasi { get; set; }
-        public bool DolulukDolulukDurumuu { get; set; }
+        public bool DolulukDurumu { get; set; }
         public string OdaTipi { get; set; }
         public bool OdaTemizlik { get; set; }
     }

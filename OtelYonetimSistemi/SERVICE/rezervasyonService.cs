@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OtelYonetimSistemi.DAL;
 using OtelYonetimSistemi.DOMAIN;
+using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 namespace OtelYonetimSistemi.SERVICE
 {
@@ -27,7 +29,7 @@ namespace OtelYonetimSistemi.SERVICE
 
             
             Oda oda = odaDAO.OdaGetir(rezervasyon.OdaID);
-            if (oda == null || oda.DolulukDolulukDurumuu)
+            if (oda == null || oda.DolulukDurumu)
                 throw new Exception("Seçilen oda müsait değil!");
 
            
@@ -40,7 +42,7 @@ namespace OtelYonetimSistemi.SERVICE
             if (sonuc)
             {
                 
-                oda.DolulukDolulukDurumuu = true;
+                oda.DolulukDurumu = true;
                 odaDAO.OdaGuncelle(oda);
             }
 
@@ -57,10 +59,52 @@ namespace OtelYonetimSistemi.SERVICE
 
             
             Oda oda = odaDAO.OdaGetir(rezervasyon.OdaID);
-            oda.DolulukDolulukDurumuu = false;
+            oda.DolulukDurumu = false;
             odaDAO.OdaGuncelle(oda);
 
             return true;
+        }
+
+        public List<Rezervasyon> TumRezervasyonlariGetir()
+        {
+            List<Rezervasyon> rezervasyonlar = new List<Rezervasyon>();
+            
+            try
+            {
+                using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
+                {
+                    string query = @"SELECT r.rezervasyonID, r.odaID, r.girisTarihi, r.cikisTarihi, 
+                                   r.toplamTutar, m.adSoyad, m.telNumarasi, o.odaNumarasi 
+                                   FROM rezervasyon r 
+                                   JOIN musteri m ON r.musteriID = m.musteriID 
+                                   JOIN oda o ON r.odaID = o.odaID";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            rezervasyonlar.Add(new Rezervasyon
+                            {
+                                RezervasyonID = Convert.ToInt32(reader["rezervasyonID"]),
+                                OdaID = Convert.ToInt32(reader["odaID"]),
+                                GirisTarihi = Convert.ToDateTime(reader["girisTarihi"]),
+                                CikisTarihi = Convert.ToDateTime(reader["cikisTarihi"]),
+                                ToplamTutar = Convert.ToDecimal(reader["toplamTutar"]),
+                                MusteriAdSoyad = reader["adSoyad"].ToString(),
+                                MusteriTelefon = reader["telNumarasi"].ToString(),
+                                OdaNumarasi = reader["odaNumarasi"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Rezervasyonlar getirilirken hata oluştu: " + ex.Message);
+            }
+
+            return rezervasyonlar;
         }
     }
 }

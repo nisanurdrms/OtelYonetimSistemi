@@ -80,6 +80,12 @@
     <Compile Include="SERVICE\OdaService.cs" />
     <Compile Include="SERVICE\RezervasyonService.cs" />
     <Compile Include="SERVICE\YoneticiService.cs" />
+    <Compile Include="UI\MusteriForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MusteriForm.Designer.cs">
+      <DependentUpon>MusteriForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\OdaDetayForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\MusteriForm.resx">
+      <DependentUpon>MusteriForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\OdaDetayForm.resx">
       <DependentUpon>OdaDetayForm.cs</DependentUpon>
     </EmbeddedResource>

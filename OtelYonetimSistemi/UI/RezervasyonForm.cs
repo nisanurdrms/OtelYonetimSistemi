@@ -48,41 +48,24 @@ namespace OtelYonetimSistemi.UI
 
         private void cmbOdaTipi_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Seçilen oda tipine göre oda numaralarını yükle
-            string selectedRoomType = cmbOdaTipi.SelectedItem.ToString();
-            LoadRoomNumbers(selectedRoomType);
+            // Check if a room type is selected
+            if (cmbOdaTipi.SelectedItem != null)
+            {
+                string selectedRoomType = cmbOdaTipi.SelectedItem.ToString();
+                LoadRoomNumbers(selectedRoomType); // Load available room numbers
+            }
         }
+
+
 
         private void LoadRoomNumbers(string roomType)
         {
             try
             {
+                cmbOdaNumarasi.Items.Clear(); // Clear the existing room numbers
+
                 using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
                 {
-                    string query = "SELECT DISTINCT odaNumarasi FROM oda";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            cmbOdaNumarasi.Items.Add(reader["odaNumarasi"].ToString());
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Oda numaraları yüklenirken hata oluştu: " + ex.Message);
-            }
-        }
-        public List<string> GetAvailableRoomNumbers(string roomType)
-        {
-            List<string> availableRoomNumbers = new List<string>();
-            try
-            {
-                using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
-                {
-                    // Fetch room numbers that are available ('Boş') and match the selected room type
                     string query = "SELECT odaNumarasi FROM oda WHERE odaTipi = @RoomType AND dolulukDurumu = 'Boş'";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
@@ -92,25 +75,47 @@ namespace OtelYonetimSistemi.UI
                         {
                             while (reader.Read())
                             {
-                                availableRoomNumbers.Add(reader["odaNumarasi"].ToString());
+                                string roomNumber = reader["odaNumarasi"].ToString();
+                                cmbOdaNumarasi.Items.Add(roomNumber);
+
+                                // Debug line to print room numbers in the console
+                                Console.WriteLine("Room Number Loaded: " + roomNumber); // Debug line
                             }
                         }
                     }
                 }
 
-                if (availableRoomNumbers.Count == 0)
+                if (cmbOdaNumarasi.Items.Count == 0)
                 {
-                    MessageBox.Show("Bu türde müsait oda yok.");
+                    MessageBox.Show("No available rooms found for this room type.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Oda numaraları yüklenirken hata oluştu: " + ex.Message);
+                MessageBox.Show("Error loading room numbers: " + ex.Message);
             }
-
-            return availableRoomNumbers;
         }
 
+
+
+        private void cmbOdaNumarasi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedRoomNumber = cmbOdaNumarasi.SelectedItem?.ToString();
+            if (!string.IsNullOrEmpty(selectedRoomNumber))
+            {
+                // You can add logic here if you want to show room details, etc.
+                // For example, display the room number or disable/enable other buttons
+                MessageBox.Show($"Oda numarası {selectedRoomNumber} seçildi.");
+
+                // Optionally, enable the reservation button if a room is selected
+                btnRezervasyonYap.Enabled = true;
+            }
+            else
+            {
+                // Disable the reservation button if no room is selected
+                btnRezervasyonYap.Enabled = false;
+            }
+        }
 
 
         private void CalculateTotalAmount()
