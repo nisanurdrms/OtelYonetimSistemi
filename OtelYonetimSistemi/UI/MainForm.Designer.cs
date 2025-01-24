@@ -71,7 +71,7 @@
             this.menuStrip.Location = new System.Drawing.Point(10, 10);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip.Size = new System.Drawing.Size(1232, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1103, 28);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -144,9 +144,9 @@
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
-            this.statusStrip.Location = new System.Drawing.Point(10, 645);
+            this.statusStrip.Location = new System.Drawing.Point(10, 623);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1232, 26);
+            this.statusStrip.Size = new System.Drawing.Size(1103, 26);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -163,7 +163,7 @@
             this.pnlOdalar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlOdalar.Location = new System.Drawing.Point(10, 38);
             this.pnlOdalar.Name = "pnlOdalar";
-            this.pnlOdalar.Size = new System.Drawing.Size(282, 607);
+            this.pnlOdalar.Size = new System.Drawing.Size(282, 585);
             this.pnlOdalar.TabIndex = 3;
             // 
             // btnOda
@@ -207,7 +207,7 @@
             this.flpOdalar.Controls.Add(this.dgvRezervayonlar);
             this.flpOdalar.Location = new System.Drawing.Point(298, 38);
             this.flpOdalar.Name = "flpOdalar";
-            this.flpOdalar.Size = new System.Drawing.Size(946, 622);
+            this.flpOdalar.Size = new System.Drawing.Size(946, 585);
             this.flpOdalar.TabIndex = 4;
             // 
             // pnlRezervasyonlar
@@ -216,7 +216,7 @@
             this.pnlRezervasyonlar.Location = new System.Drawing.Point(3, 3);
             this.pnlRezervasyonlar.Name = "pnlRezervasyonlar";
             this.pnlRezervasyonlar.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlRezervasyonlar.Size = new System.Drawing.Size(311, 618);
+            this.pnlRezervasyonlar.Size = new System.Drawing.Size(311, 581);
             this.pnlRezervasyonlar.TabIndex = 4;
             // 
             // dgvRezervayonlar
@@ -237,17 +237,18 @@
             this.dgvRezervayonlar.RowHeadersWidth = 51;
             this.dgvRezervayonlar.RowTemplate.Height = 24;
             this.dgvRezervayonlar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRezervayonlar.Size = new System.Drawing.Size(594, 615);
+            this.dgvRezervayonlar.Size = new System.Drawing.Size(494, 578);
             this.dgvRezervayonlar.TabIndex = 5;
             // 
             // OdaNo
             // 
+            this.OdaNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.OdaNo.FillWeight = 22.212F;
             this.OdaNo.HeaderText = "Oda No";
             this.OdaNo.MinimumWidth = 20;
             this.OdaNo.Name = "OdaNo";
             this.OdaNo.ReadOnly = true;
-            this.OdaNo.Width = 25;
+            this.OdaNo.Width = 83;
             // 
             // MusteriAdSoyad
             // 
@@ -289,7 +290,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 681);
+            this.ClientSize = new System.Drawing.Size(1123, 659);
             this.Controls.Add(this.flpOdalar);
             this.Controls.Add(this.pnlOdalar);
             this.Controls.Add(this.statusStrip);

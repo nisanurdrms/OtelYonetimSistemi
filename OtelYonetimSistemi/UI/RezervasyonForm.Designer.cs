@@ -76,6 +76,7 @@
             this.txtAdSoyad.Name = "txtAdSoyad";
             this.txtAdSoyad.Size = new System.Drawing.Size(233, 22);
             this.txtAdSoyad.TabIndex = 3;
+            this.txtAdSoyad.TextChanged += new System.EventHandler(this.txtAdSoyad_TextChanged);
             // 
             // btnRezervasyonYap
             // 

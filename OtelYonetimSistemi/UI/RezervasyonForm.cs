@@ -260,6 +260,10 @@ namespace OtelYonetimSistemi.UI
             return 0; // Hata durumunda veya oda bulunamazsa 0 döner
         }
 
+        private void txtAdSoyad_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
                 
