@@ -40,6 +40,7 @@
             this.dtpCikisTarihi = new System.Windows.Forms.DateTimePicker();
             this.btnGuncelle = new System.Windows.Forms.Button();
             this.btnSil = new System.Windows.Forms.Button();
+            this.chkFaturaOdendi = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMusteri)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,6 +53,7 @@
             this.dgvMusteri.RowTemplate.Height = 24;
             this.dgvMusteri.Size = new System.Drawing.Size(654, 524);
             this.dgvMusteri.TabIndex = 0;
+            this.dgvMusteri.SelectionChanged += new System.EventHandler(this.dgvMusteri_SelectionChanged);
             // 
             // txtAdSoyad
             // 
@@ -75,7 +77,7 @@
             this.btnMusteriEkle.TabIndex = 3;
             this.btnMusteriEkle.Text = "Müşteri Ekle";
             this.btnMusteriEkle.UseVisualStyleBackColor = true;
-            this.btnMusteriEkle.Click += new System.EventHandler(this.btnMusteriEkle_Click);
+            this.btnMusteriEkle.Click += new System.EventHandler(this.btnEkle_Click);
             // 
             // lblAdSoyad
             // 
@@ -92,7 +94,6 @@
             this.txtTelNumarasi.Name = "txtTelNumarasi";
             this.txtTelNumarasi.Size = new System.Drawing.Size(179, 22);
             this.txtTelNumarasi.TabIndex = 5;
-            this.txtTelNumarasi.TextChanged += new System.EventHandler(this.txtTelNumarasi_TextChanged);
             // 
             // label1
             // 
@@ -110,7 +111,6 @@
             this.cmbOdaNumarasi.Name = "cmbOdaNumarasi";
             this.cmbOdaNumarasi.Size = new System.Drawing.Size(121, 24);
             this.cmbOdaNumarasi.TabIndex = 7;
-            this.cmbOdaNumarasi.SelectedIndexChanged += new System.EventHandler(this.cmbOdaNumarasi_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -136,7 +136,7 @@
             this.btnGuncelle.TabIndex = 10;
             this.btnGuncelle.Text = "Güncelle";
             this.btnGuncelle.UseVisualStyleBackColor = true;
-            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click_1);
+            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
             // 
             // btnSil
             // 
@@ -148,11 +148,22 @@
             this.btnSil.UseVisualStyleBackColor = true;
             this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
+            // chkFaturaOdendi
+            // 
+            this.chkFaturaOdendi.AutoSize = true;
+            this.chkFaturaOdendi.Location = new System.Drawing.Point(61, 272);
+            this.chkFaturaOdendi.Name = "chkFaturaOdendi";
+            this.chkFaturaOdendi.Size = new System.Drawing.Size(90, 20);
+            this.chkFaturaOdendi.TabIndex = 12;
+            this.chkFaturaOdendi.Text = "CheckBox";
+            this.chkFaturaOdendi.UseVisualStyleBackColor = true;
+            // 
             // MusteriForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1190, 648);
+            this.Controls.Add(this.chkFaturaOdendi);
             this.Controls.Add(this.btnSil);
             this.Controls.Add(this.btnGuncelle);
             this.Controls.Add(this.dtpCikisTarihi);
@@ -187,5 +198,6 @@
         private System.Windows.Forms.DateTimePicker dtpCikisTarihi;
         private System.Windows.Forms.Button btnGuncelle;
         private System.Windows.Forms.Button btnSil;
+        private System.Windows.Forms.CheckBox chkFaturaOdendi;
     }
 }

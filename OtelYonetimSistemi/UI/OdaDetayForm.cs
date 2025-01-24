@@ -75,8 +75,8 @@ namespace OtelYonetimSistemi.UI
                 },
                 new DataGridViewTextBoxColumn
                 {
-                    Name = "OdaodaFiyat",
-                    DataPropertyName = "odaFiyat",
+                    Name = "OdaodaodaFiyat",
+                    DataPropertyName = "odaodaFiyat",
                     HeaderText = "Oda odaFiyati",
                     Width = 100,
                     DefaultCellStyle =
@@ -97,7 +97,7 @@ namespace OtelYonetimSistemi.UI
                 {
                     conn.Open(); // Ensure the connection is open
                     string query = @"SELECT odaID, odaNumarasi, odaTipi, 
-                                       dolulukDurumu, odaTemizlik, odaFiyat 
+                                       dolulukDurumu, odaTemizlik, odaodaFiyat 
                                        FROM oda ORDER BY odaNumarasi";
 
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn))
@@ -134,7 +134,7 @@ namespace OtelYonetimSistemi.UI
                     if (conn != null)
                     {
                         string query = @"INSERT INTO oda 
-                                       (odaNumarasi, odaTipi, dolulukDurumu, odaTemizlik, odaFiyat)
+                                       (odaNumarasi, odaTipi, dolulukDurumu, odaTemizlik, odaodaFiyat)
                                        VALUES 
                                        (@odaNo, @odaTipi, false, @temizlik, @odaFiyat)";
 
