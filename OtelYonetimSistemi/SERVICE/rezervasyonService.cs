@@ -27,20 +27,20 @@ namespace OtelYonetimSistemi.SERVICE
 
             
             Oda oda = odaDAO.OdaGetir(rezervasyon.OdaID);
-            if (oda == null || oda.DolulukDurumu)
+            if (oda == null || oda.DolulukDolulukDurumuu)
                 throw new Exception("Seçilen oda müsait değil!");
 
            
             int gunSayisi = (rezervasyon.CikisTarihi - rezervasyon.GirisTarihi).Days;
-            decimal gunlukFiyat = oda.OdaTipi == "Suit" ? 1000 : 500; 
-            rezervasyon.ToplamTutar = gunlukFiyat * gunSayisi;
+            decimal gunlukToplamTutar = oda.OdaTipi == "Suit" ? 1000 : 500; 
+            rezervasyon.ToplamTutar = gunlukToplamTutar * gunSayisi;
 
             
             bool sonuc = rezervasyonDAO.RezervasyonEkle(rezervasyon);
             if (sonuc)
             {
                 
-                oda.DolulukDurumu = true;
+                oda.DolulukDolulukDurumuu = true;
                 odaDAO.OdaGuncelle(oda);
             }
 
@@ -53,11 +53,11 @@ namespace OtelYonetimSistemi.SERVICE
             if (rezervasyon == null)
                 throw new Exception("Rezervasyon bulunamadı!");
 
-            rezervasyon.RezervasyonDurumu = "İptal";
+            rezervasyon.RezervasyonDolulukDurumuu = "İptal";
 
             
             Oda oda = odaDAO.OdaGetir(rezervasyon.OdaID);
-            oda.DolulukDurumu = false;
+            oda.DolulukDolulukDurumuu = false;
             odaDAO.OdaGuncelle(oda);
 
             return true;

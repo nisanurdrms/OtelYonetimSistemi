@@ -1,142 +1,227 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using MySql.Data.MySqlClient;
 using OtelYonetimSistemi.DAL;
+using MySql.Data.MySqlClient;
 
 namespace OtelYonetimSistemi.UI
 {
     public partial class OdaDetayForm : Form
     {
-        public OdaDetayForm()
+        private string _connectionString;
+
+        // Constructor to accept the connection string
+        public OdaDetayForm(string connectionString)
         {
             InitializeComponent();
-            OdaListele(); // Form yüklendiğinde odaları listele
+            _connectionString = connectionString; // Store the connection string
+            DataGridViewiAyarla(); // Set up the DataGridView
+            LoadRooms(); // Load rooms from the database
         }
 
-        // Odaları listeleme işlemi
-        private void OdaListele()
+        // Set up the DataGridView columns
+        private void DataGridViewiAyarla()
+        {
+            dgvOdaListesi.AutoGenerateColumns = false;
+            dgvOdaListesi.Columns.Clear();
+
+            dgvOdaListesi.Columns.AddRange(
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "OdaID",
+                    DataPropertyName = "odaID",
+                    HeaderText = "Oda ID",
+                    Width = 80,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "OdaNumarasi",
+                    DataPropertyName = "odaNumarasi",
+                    HeaderText = "Oda Numarası",
+                    Width = 100,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "OdaTipi",
+                    DataPropertyName = "odaTipi",
+                    HeaderText = "Oda Tipi",
+                    Width = 100,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "DolulukDurumu",
+                    DataPropertyName = "dolulukDurumu",
+                    HeaderText = "Doluluk Durumu",
+                    Width = 100,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "OdaTemizlik",
+                    DataPropertyName = "odaTemizlik",
+                    HeaderText = "Temizlik Durumu",
+                    Width = 100,
+                    DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "OdaodaFiyat",
+                    DataPropertyName = "odaFiyat",
+                    HeaderText = "Oda Fiyati",
+                    Width = 100,
+                    DefaultCellStyle =
+                    {
+                        Alignment = DataGridViewContentAlignment.MiddleRight,
+                        Format = "C2"
+                    }
+                }
+            );
+        }
+
+        // Load rooms from the database and display them in the DataGridView
+        private void LoadRooms()
         {
             try
             {
-                using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
+                using (MySqlConnection conn = new MySqlConnection(_connectionString))
                 {
-                    string query = "SELECT odaID, odaNumarasi, dolulukDurumu, odaTipi, odaTemizlik FROM oda";
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dgvOdaListesi.DataSource = dt; // DataGridView'e veri bağla
+                    conn.Open(); // Ensure the connection is open
+                    string query = @"SELECT odaID, odaNumarasi, odaTipi, 
+                                       dolulukDurumu, odaTemizlik, odaFiyat 
+                                       FROM oda ORDER BY odaNumarasi";
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        dgvOdaListesi.DataSource = dt; // Bind the data to the grid
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Odalar listelenirken hata oluştu: " + ex.Message);
+                MessageBox.Show("Odalar yüklenirken hata oluştu: " + ex.Message, "Hata",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // Yeni oda ekleme işlemi
+        // Add a new room
         private void btnOdaEkle_Click(object sender, EventArgs e)
         {
-            string odaNumarasi = txtOdaNumarasi.Text;
-            string odaTipi = cmbOdaTipi.SelectedItem?.ToString() ?? "Belirtilmedi";
-
             try
             {
-                using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
+                if (string.IsNullOrWhiteSpace(txtOdaNumarasi.Text) ||
+                    string.IsNullOrWhiteSpace(txtOdaTipi.Text) ||
+                    string.IsNullOrWhiteSpace(txtToplamTutar.Text))
                 {
-                    string query = "INSERT INTO oda (odaNumarasi, dolulukDurumu, odaTipi, odaTemizlik) " +
-                                   "VALUES (@OdaNumarasi, 'Müsait', @OdaTipi, 'Temiz')";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@OdaNumarasi", odaNumarasi);
-                        command.Parameters.AddWithValue("@OdaTipi", odaTipi);
+                    MessageBox.Show("Lütfen tüm alanları doldurunuz.", "Uyarı",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Oda başarıyla eklendi.");
-                        OdaListele(); // Listeyi güncelle
-                    }
+                using (MySqlConnection conn = new MySqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    string query = @"INSERT INTO oda (odaNumarasi, odaTipi, dolulukDurumu, 
+                                   odaTemizlik, odaFiyat) 
+                                   VALUES (@odaNo, @tip, 'Boş', 'Temiz', @odaFiyat)";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@odaNo", txtOdaNumarasi.Text);
+                    cmd.Parameters.AddWithValue("@tip", txtOdaTipi.Text);
+                    cmd.Parameters.AddWithValue("@odaFiyat", Convert.ToDecimal(txtToplamTutar.Text));
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Oda başarıyla eklendi.", "Bilgi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    txtOdaNumarasi.Clear();
+                    txtOdaTipi.Clear();
+                    txtToplamTutar.Clear();
+                    LoadRooms(); // Refresh the grid
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Oda eklenirken hata oluştu: " + ex.Message);
+                MessageBox.Show("Oda eklenirken hata oluştu: " + ex.Message, "Hata",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // Oda silme işlemi
+        // Delete a selected room
         private void btnOdaSil_Click(object sender, EventArgs e)
         {
-            if (dgvOdaListesi.SelectedRows.Count > 0)
+            if (dgvOdaListesi.SelectedRows.Count == 0)
             {
-                int odaID = Convert.ToInt32(dgvOdaListesi.SelectedRows[0].Cells["odaID"].Value);
-
-                DialogResult result = MessageBox.Show("Bu odayı silmek istediğinize emin misiniz?",
-                                                      "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    try
-                    {
-                        using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
-                        {
-                            string query = "DELETE FROM oda WHERE odaID = @OdaID";
-                            using (MySqlCommand command = new MySqlCommand(query, connection))
-                            {
-                                command.Parameters.AddWithValue("@OdaID", odaID);
-                                command.ExecuteNonQuery();
-                                MessageBox.Show("Oda başarıyla silindi.");
-                                OdaListele(); // Listeyi güncelle
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Oda silinirken hata oluştu: " + ex.Message);
-                    }
-                }
+                MessageBox.Show("Lütfen silinecek odayı seçin.", "Uyarı",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
-            {
-                MessageBox.Show("Lütfen silmek istediğiniz odayı seçin.");
-            }
-        }
 
-        // Temizlik durumunu güncelleme işlemi
-        private void btnTemizlikGuncelle_Click(object sender, EventArgs e)
-        {
-            if (dgvOdaListesi.SelectedRows.Count > 0)
+            if (MessageBox.Show("Seçili odayı silmek istediğinize emin misiniz?", "Onay",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                int odaID = Convert.ToInt32(dgvOdaListesi.SelectedRows[0].Cells["odaID"].Value);
-
                 try
                 {
-                    using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
+                    int odaID = Convert.ToInt32(dgvOdaListesi.SelectedRows[0].Cells["OdaID"].Value);
+                    using (MySqlConnection conn = new MySqlConnection(_connectionString))
                     {
-                        string query = "UPDATE oda SET odaTemizlik = 'Temiz' WHERE odaID = @OdaID";
-                        using (MySqlCommand command = new MySqlCommand(query, connection))
-                        {
-                            command.Parameters.AddWithValue("@OdaID", odaID);
-                            command.ExecuteNonQuery();
-                            MessageBox.Show("Oda temizlik durumu güncellendi.");
-                            OdaListele(); // Listeyi güncelle
-                        }
+                        conn.Open();
+                        string query = "DELETE FROM oda WHERE odaID = @odaID";
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@odaID", odaID);
+
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Oda başarıyla silindi.", "Bilgi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadRooms(); // Refresh the grid
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Temizlik durumu güncellenirken hata oluştu: " + ex.Message);
+                    MessageBox.Show("Oda silinirken hata oluştu: " + ex.Message, "Hata",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+        }
+
+        // Update the cleaning status of a selected room
+        private void btnodaTemizlik_Click(object sender, EventArgs e)
+        {
+            if (dgvOdaListesi.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Lütfen temizlik durumunu güncellemek istediğiniz odayı seçin.");
+                MessageBox.Show("Lütfen bir oda seçin.", "Uyarı",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                int odaID = Convert.ToInt32(dgvOdaListesi.SelectedRows[0].Cells["OdaID"].Value);
+                string mevcutDurum = dgvOdaListesi.SelectedRows[0].Cells["odaTemizlik"].Value.ToString();
+                string yeniDurum = mevcutDurum == "Temiz" ? "Kirli" : "Temiz";
+
+                using (MySqlConnection conn = new MySqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    string query = "UPDATE oda SET odaTemizlik = @durum WHERE odaID = @odaID";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@durum", yeniDurum);
+                    cmd.Parameters.AddWithValue("@odaID", odaID);
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Temizlik durumu güncellendi.", "Bilgi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadRooms(); // Refresh the grid
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Temizlik durumu güncellenirken hata oluştu: " + ex.Message, "Hata",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -59,7 +59,7 @@ namespace OtelYonetimSistemi.UI
 
                 using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
                 {
-                    string query = "SELECT odaNumarasi FROM oda WHERE odaTipi = @RoomType AND dolulukDurumu = 'Boş'";
+                    string query = "SELECT odaNumarasi FROM oda WHERE odaTipi = @RoomType AND dolulukDolulukDurumuu = 'Boş'";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@RoomType", roomType);
@@ -102,9 +102,9 @@ namespace OtelYonetimSistemi.UI
                     return;
                 }
 
-                // Seçilen oda tipine göre fiyatı belirle
+                // Seçilen oda tipine göre ToplamTutarı belirle
                 string selectedRoomType = cmbOdaTipi.SelectedItem.ToString();
-                decimal roomPrice = GetRoomPriceByType(selectedRoomType); // Fiyatı al
+                decimal roomPrice = GetRoomPriceByType(selectedRoomType); // ToplamTutarı al
 
                 // Toplam tutarı hesapla
                 decimal totalAmount = dayDifference * roomPrice;
@@ -120,7 +120,7 @@ namespace OtelYonetimSistemi.UI
 
         private decimal GetRoomPriceByType(string roomType)
         {
-            // Oda tipine göre sabit fiyatlar (örnek)
+            // Oda tipine göre sabit ToplamTutarlar (örnek)
             if (roomType == "Standart")
                 return 500m; // 500₺
             else if (roomType == "Deluxe")
@@ -177,7 +177,7 @@ namespace OtelYonetimSistemi.UI
                     try
                     {
                         // 1. Müşteri Tablosuna Veri Ekle
-                        string customerQuery = "INSERT INTO musteri (adSoyad, telNumarasi, odaNumarasi, girisTarihi, cikisTarihi, faturaDurumu) " +
+                        string customerQuery = "INSERT INTO musteri (adSoyad, telNumarasi, odaNumarasi, girisTarihi, cikisTarihi, faturaDolulukDurumuu) " +
                                                "VALUES (@Name, @Phone, @RoomNumber, @CheckInDate, @CheckOutDate, 'Bekliyor')";
                         MySqlCommand customerCommand = new MySqlCommand(customerQuery, connection, transaction);
                         customerCommand.Parameters.AddWithValue("@Name", adSoyad);
@@ -190,7 +190,7 @@ namespace OtelYonetimSistemi.UI
                         int customerId = (int)customerCommand.LastInsertedId; // Eklenen müşteri ID'sini al
 
                         // 2. Rezervasyon Tablosuna Veri Ekle
-                        string reservationQuery = "INSERT INTO rezervasyon (musteriID, odaID, faturaID, girisTarihi, cikisTarihi, rezervasyonDurumu, toplamTutar) " +
+                        string reservationQuery = "INSERT INTO rezervasyon (musteriID, odaID, faturaID, girisTarihi, cikisTarihi, rezervasyonDolulukDurumuu, toplamTutar) " +
                                                   "VALUES (@CustomerID, @RoomID, NULL, @CheckInDate, @CheckOutDate, 'Bekliyor', @TotalAmount)";
                         MySqlCommand reservationCommand = new MySqlCommand(reservationQuery, connection, transaction);
                         reservationCommand.Parameters.AddWithValue("@CustomerID", customerId);
@@ -203,13 +203,13 @@ namespace OtelYonetimSistemi.UI
                         int reservationId = (int)reservationCommand.LastInsertedId; // Eklenen rezervasyon ID'sini al
 
                         // 3. Oda Tablosunu Güncelle
-                        string roomUpdateQuery = "UPDATE oda SET dolulukDurumu = 'Dolu' WHERE odaID = @RoomID";
+                        string roomUpdateQuery = "UPDATE oda SET dolulukDolulukDurumuu = 'Dolu' WHERE odaID = @RoomID";
                         MySqlCommand roomUpdateCommand = new MySqlCommand(roomUpdateQuery, connection, transaction);
                         roomUpdateCommand.Parameters.AddWithValue("@RoomID", odaID);
                         roomUpdateCommand.ExecuteNonQuery();
 
                         // 4. Fatura Tablosuna Veri Ekle
-                        string invoiceQuery = "INSERT INTO fatura (rezervasyonID, toplamTutar, odenmeDurumu, olusturulmaTarihi) " +
+                        string invoiceQuery = "INSERT INTO fatura (rezervasyonID, toplamTutar, odenmeDolulukDurumuu, olusturulmaTarihi) " +
                                               "VALUES (@ReservationID, @TotalAmount, 'Bekliyor', NOW())";
                         MySqlCommand invoiceCommand = new MySqlCommand(invoiceQuery, connection, transaction);
                         invoiceCommand.Parameters.AddWithValue("@ReservationID", reservationId);
@@ -222,7 +222,7 @@ namespace OtelYonetimSistemi.UI
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback(); // Hata durumunda işlemi geri al
+                        transaction.Rollback(); // Hata DolulukDurumuunda işlemi geri al
                         MessageBox.Show("Hata: " + ex.Message);
                     }
                 }
@@ -257,7 +257,7 @@ namespace OtelYonetimSistemi.UI
                 MessageBox.Show("Oda ID alınırken hata oluştu: " + ex.Message);
             }
 
-            return 0; // Hata durumunda veya oda bulunamazsa 0 döner
+            return 0; // Hata DolulukDurumuunda veya oda bulunamazsa 0 döner
         }
 
         private void txtAdSoyad_TextChanged(object sender, EventArgs e)

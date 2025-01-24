@@ -19,15 +19,15 @@ namespace OtelYonetimSistemi.DAL
                 {
                     conn.Open();
                     string sql = "INSERT INTO rezervasyon (musteriID, odaID, girisTarihi, cikisTarihi, " +
-                               "rezervasyonDurumu, toplamTutar) VALUES (@musteriID, @odaID, @girisTarihi, " +
-                               "@cikisTarihi, @rezervasyonDurumu, @toplamTutar)";
+                               "rezervasyonDolulukDurumuu, toplamTutar) VALUES (@musteriID, @odaID, @girisTarihi, " +
+                               "@cikisTarihi, @rezervasyonDolulukDurumuu, @toplamTutar)";
 
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@musteriID", rezervasyon.MusteriID);
                     cmd.Parameters.AddWithValue("@odaID", rezervasyon.OdaID);
                     cmd.Parameters.AddWithValue("@girisTarihi", rezervasyon.GirisTarihi);
                     cmd.Parameters.AddWithValue("@cikisTarihi", rezervasyon.CikisTarihi);
-                    cmd.Parameters.AddWithValue("@rezervasyonDurumu", rezervasyon.RezervasyonDurumu);
+                    cmd.Parameters.AddWithValue("@rezervasyonDolulukDurumuu", rezervasyon.RezervasyonDolulukDurumuu);
                     cmd.Parameters.AddWithValue("@toplamTutar", rezervasyon.ToplamTutar);
 
                     return cmd.ExecuteNonQuery() > 0;
@@ -65,7 +65,7 @@ namespace OtelYonetimSistemi.DAL
                                 OdaID = reader.GetInt32("odaID"),
                                 GirisTarihi = reader.GetDateTime("girisTarihi"),
                                 CikisTarihi = reader.GetDateTime("cikisTarihi"),
-                                RezervasyonDurumu = reader.GetString("rezervasyonDurumu"),
+                                RezervasyonDolulukDurumuu = reader.GetString("rezervasyonDolulukDurumuu"),
                                 ToplamTutar = reader.GetDecimal("toplamTutar"),
                                 Musteri = new Musteri { AdSoyad = reader.GetString("adSoyad") },
                                 Oda = new Oda { OdaNumarasi = reader.GetString("odaNumarasi") }

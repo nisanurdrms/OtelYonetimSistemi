@@ -29,21 +29,21 @@ namespace OtelYonetimSistemi.SERVICE
             return odaDAO.OdaEkle(oda);
         }
 
-        public bool OdaDurumGuncelle(int odaID, bool dolulukDurumu, bool temizlikDurumu)
+        public bool OdaDolulukDurumuGuncelle(int odaID, bool dolulukDolulukDurumuu, bool temizlikDolulukDurumuu)
         {
             Oda oda = odaDAO.OdaGetir(odaID);
             if (oda == null)
                 throw new Exception("Oda bulunamadı!");
 
-            oda.DolulukDurumu = dolulukDurumu;
-            oda.OdaTemizlik = temizlikDurumu;
+            oda.DolulukDolulukDurumuu = dolulukDolulukDurumuu;
+            oda.OdaTemizlik = temizlikDolulukDurumuu;
 
             return odaDAO.OdaGuncelle(oda);
         }
 
         public List<Oda> MusaitOdalariGetir()
         {
-            return odaDAO.TumOdalariGetir().Where(o => !o.DolulukDurumu && o.OdaTemizlik).ToList();
+            return odaDAO.TumOdalariGetir().Where(o => !o.DolulukDolulukDurumuu && o.OdaTemizlik).ToList();
         }
 
         internal IEnumerable<object> TumOdalariGetir()

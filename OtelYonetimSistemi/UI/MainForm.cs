@@ -58,14 +58,11 @@ namespace OtelYonetimSistemi
                         Margin = new Padding(5),
                         FlatStyle = FlatStyle.Flat,
                         Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                        BackColor = oda.DolulukDurumu ? Color.FromArgb(244, 67, 54) : 
+                        BackColor = oda.DolulukDolulukDurumuu ? Color.FromArgb(244, 67, 54) : 
                                (!oda.OdaTemizlik ? Color.FromArgb(255, 235, 59) : 
                                Color.FromArgb(76, 175, 80)), 
-                        ForeColor = oda.DolulukDurumu || !oda.OdaTemizlik ? Color.White : Color.Black
+                        ForeColor = oda.DolulukDolulukDurumuu || !oda.OdaTemizlik ? Color.White : Color.Black
                     };
-                    btnOda.FlatAppearance.BorderSize = 0;
-                    btnOda.Click += new EventHandler(btnOda_Click);
-                    flpOdalar.Controls.Add(btnOda);
 
                 }
             }
@@ -85,27 +82,15 @@ namespace OtelYonetimSistemi
             }
         }
 
-        private void btnOda_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblOdaDurum_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAktifRezervasyon_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void menuOdaYonetimi_Click(object sender, EventArgs e)
         {
             if (odaDetayForm == null || odaDetayForm.IsDisposed) 
             {
-                odaDetayForm = new OdaDetayForm(); 
-                odaDetayForm.Show();        
+                string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;"; 
+                OdaDetayForm odaDetayForm = new OdaDetayForm(connectionString);
+                odaDetayForm.Show();
+
             }
             else
             {

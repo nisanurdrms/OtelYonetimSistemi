@@ -21,12 +21,12 @@ namespace OtelYonetimSistemi.DAL
                 try
                 {
                     conn.Open();
-                    string sql = "INSERT INTO oda (odaNumarasi, dolulukDurumu, odaTipi, odaTemizlik) " +
-                               "VALUES (@odaNumarasi, @dolulukDurumu, @odaTipi, @odaTemizlik)";
+                    string sql = "INSERT INTO oda (odaNumarasi, dolulukDolulukDurumuu, odaTipi, odaTemizlik) " +
+                               "VALUES (@odaNumarasi, @dolulukDolulukDurumuu, @odaTipi, @odaTemizlik)";
 
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@odaNumarasi", oda.OdaNumarasi);
-                    cmd.Parameters.AddWithValue("@dolulukDurumu", oda.DolulukDurumu);
+                    cmd.Parameters.AddWithValue("@dolulukDolulukDurumuu", oda.DolulukDolulukDurumuu);
                     cmd.Parameters.AddWithValue("@odaTipi", oda.OdaTipi);
                     cmd.Parameters.AddWithValue("@odaTemizlik", oda.OdaTemizlik);
 
@@ -58,7 +58,7 @@ namespace OtelYonetimSistemi.DAL
                             {
                                 OdaID = reader.GetInt32("odaID"),
                                 OdaNumarasi = reader.GetString("odaNumarasi"),
-                                DolulukDurumu = reader.GetBoolean("dolulukDurumu"),
+                                DolulukDolulukDurumuu = reader.GetBoolean("dolulukDolulukDurumuu"),
                                 OdaTipi = reader.GetString("odaTipi"),
                                 OdaTemizlik = reader.GetBoolean("odaTemizlik")
                             };
@@ -92,7 +92,7 @@ namespace OtelYonetimSistemi.DAL
                             {
                                 OdaID = reader.GetInt32("odaID"),
                                 OdaNumarasi = reader.GetString("odaNumarasi"),
-                                DolulukDurumu = reader.GetBoolean("dolulukDurumu"),
+                                DolulukDolulukDurumuu = reader.GetBoolean("dolulukDolulukDurumuu"),
                                 OdaTipi = reader.GetString("odaTipi"),
                                 OdaTemizlik = reader.GetBoolean("odaTemizlik")
                             });
@@ -114,13 +114,13 @@ namespace OtelYonetimSistemi.DAL
                 try
                 {
                     conn.Open();
-                    string sql = "UPDATE oda SET odaNumarasi = @odaNumarasi, dolulukDurumu = @dolulukDurumu, " +
+                    string sql = "UPDATE oda SET odaNumarasi = @odaNumarasi, dolulukDolulukDurumuu = @dolulukDolulukDurumuu, " +
                                "odaTipi = @odaTipi, odaTemizlik = @odaTemizlik WHERE odaID = @odaID";
 
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@odaID", oda.OdaID);
                     cmd.Parameters.AddWithValue("@odaNumarasi", oda.OdaNumarasi);
-                    cmd.Parameters.AddWithValue("@dolulukDurumu", oda.DolulukDurumu);
+                    cmd.Parameters.AddWithValue("@dolulukDolulukDurumuu", oda.DolulukDolulukDurumuu);
                     cmd.Parameters.AddWithValue("@odaTipi", oda.OdaTipi);
                     cmd.Parameters.AddWithValue("@odaTemizlik", oda.OdaTemizlik);
 

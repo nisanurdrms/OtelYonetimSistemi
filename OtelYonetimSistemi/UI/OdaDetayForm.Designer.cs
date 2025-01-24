@@ -28,18 +28,73 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblOdaİslemleri = new System.Windows.Forms.Label();
-            this.btnOdaEkle = new System.Windows.Forms.Button();
-            this.btnOdaSil = new System.Windows.Forms.Button();
-            this.btnTemizlikDurumu = new System.Windows.Forms.Button();
-            this.btnMusaitlikDurumu = new System.Windows.Forms.Button();
             this.dgvOdaListesi = new System.Windows.Forms.DataGridView();
             this.txtOdaNumarasi = new System.Windows.Forms.TextBox();
-            this.cmbOdaTipi = new System.Windows.Forms.ComboBox();
+            this.numToplamTutar = new System.Windows.Forms.NumericUpDown();
+            this.btnOdaEkle = new System.Windows.Forms.Button();
+            this.btnOdaSil = new System.Windows.Forms.Button();
+            this.btnTemizlikDolulukDurumuu = new System.Windows.Forms.Button();
+            this.lblOdaİslemleri = new System.Windows.Forms.Label();
+            this.btnMusaitlikDolulukDurumuu = new System.Windows.Forms.Button();
             this.lblOdaNumarasi = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtOdaTipi = new System.Windows.Forms.TextBox();
+            this.txtToplamTutar = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOdaListesi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numToplamTutar)).BeginInit();
             this.SuspendLayout();
+            // 
+            // dgvOdaListesi
+            // 
+            this.dgvOdaListesi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOdaListesi.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgvOdaListesi.Location = new System.Drawing.Point(0, 353);
+            this.dgvOdaListesi.Name = "dgvOdaListesi";
+            this.dgvOdaListesi.RowHeadersWidth = 51;
+            this.dgvOdaListesi.RowTemplate.Height = 24;
+            this.dgvOdaListesi.Size = new System.Drawing.Size(1197, 311);
+            this.dgvOdaListesi.TabIndex = 0;
+            // 
+            // txtOdaNumarasi
+            // 
+            this.txtOdaNumarasi.Location = new System.Drawing.Point(202, 120);
+            this.txtOdaNumarasi.Name = "txtOdaNumarasi";
+            this.txtOdaNumarasi.Size = new System.Drawing.Size(100, 22);
+            this.txtOdaNumarasi.TabIndex = 1;
+            // 
+            // numToplamTutar
+            // 
+            this.numToplamTutar.Location = new System.Drawing.Point(165, 305);
+            this.numToplamTutar.Name = "numToplamTutar";
+            this.numToplamTutar.Size = new System.Drawing.Size(120, 22);
+            this.numToplamTutar.TabIndex = 3;
+            // 
+            // btnOdaEkle
+            // 
+            this.btnOdaEkle.Location = new System.Drawing.Point(212, 294);
+            this.btnOdaEkle.Name = "btnOdaEkle";
+            this.btnOdaEkle.Size = new System.Drawing.Size(75, 23);
+            this.btnOdaEkle.TabIndex = 4;
+            this.btnOdaEkle.Text = "Oda Ekle";
+            this.btnOdaEkle.UseVisualStyleBackColor = true;
+            // 
+            // btnOdaSil
+            // 
+            this.btnOdaSil.Location = new System.Drawing.Point(838, 116);
+            this.btnOdaSil.Name = "btnOdaSil";
+            this.btnOdaSil.Size = new System.Drawing.Size(159, 41);
+            this.btnOdaSil.TabIndex = 5;
+            this.btnOdaSil.Text = "Oda Sil";
+            this.btnOdaSil.UseVisualStyleBackColor = true;
+            // 
+            // btnTemizlikDolulukDurumuu
+            // 
+            this.btnTemizlikDolulukDurumuu.Location = new System.Drawing.Point(838, 199);
+            this.btnTemizlikDolulukDurumuu.Name = "btnTemizlikDolulukDurumuu";
+            this.btnTemizlikDolulukDurumuu.Size = new System.Drawing.Size(159, 46);
+            this.btnTemizlikDolulukDurumuu.TabIndex = 6;
+            this.btnTemizlikDolulukDurumuu.Text = "Temizlik DolulukDurumuu Değiştir";
+            this.btnTemizlikDolulukDurumuu.UseVisualStyleBackColor = true;
             // 
             // lblOdaİslemleri
             // 
@@ -48,110 +103,70 @@
             this.lblOdaİslemleri.Location = new System.Drawing.Point(466, 40);
             this.lblOdaİslemleri.Name = "lblOdaİslemleri";
             this.lblOdaİslemleri.Size = new System.Drawing.Size(181, 32);
-            this.lblOdaİslemleri.TabIndex = 0;
+            this.lblOdaİslemleri.TabIndex = 7;
             this.lblOdaİslemleri.Text = "Oda İşlemleri";
             // 
-            // btnOdaEkle
+            // btnMusaitlikDolulukDurumuu
             // 
-            this.btnOdaEkle.Location = new System.Drawing.Point(165, 326);
-            this.btnOdaEkle.Name = "btnOdaEkle";
-            this.btnOdaEkle.Size = new System.Drawing.Size(75, 23);
-            this.btnOdaEkle.TabIndex = 1;
-            this.btnOdaEkle.Text = "Oda Ekle";
-            this.btnOdaEkle.UseVisualStyleBackColor = true;
-            // 
-            // btnOdaSil
-            // 
-            this.btnOdaSil.Location = new System.Drawing.Point(801, 199);
-            this.btnOdaSil.Name = "btnOdaSil";
-            this.btnOdaSil.Size = new System.Drawing.Size(159, 41);
-            this.btnOdaSil.TabIndex = 2;
-            this.btnOdaSil.Text = "Oda Sil";
-            this.btnOdaSil.UseVisualStyleBackColor = true;
-            // 
-            // btnTemizlikDurumu
-            // 
-            this.btnTemizlikDurumu.Location = new System.Drawing.Point(801, 282);
-            this.btnTemizlikDurumu.Name = "btnTemizlikDurumu";
-            this.btnTemizlikDurumu.Size = new System.Drawing.Size(159, 46);
-            this.btnTemizlikDurumu.TabIndex = 3;
-            this.btnTemizlikDurumu.Text = "Temizlik Durumunu Güncelle";
-            this.btnTemizlikDurumu.UseVisualStyleBackColor = true;
-            // 
-            // btnMusaitlikDurumu
-            // 
-            this.btnMusaitlikDurumu.Location = new System.Drawing.Point(801, 367);
-            this.btnMusaitlikDurumu.Name = "btnMusaitlikDurumu";
-            this.btnMusaitlikDurumu.Size = new System.Drawing.Size(159, 43);
-            this.btnMusaitlikDurumu.TabIndex = 4;
-            this.btnMusaitlikDurumu.Text = "Müsaitlik Durumunu Otomatikleştir";
-            this.btnMusaitlikDurumu.UseVisualStyleBackColor = true;
-            // 
-            // dgvOdaListesi
-            // 
-            this.dgvOdaListesi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOdaListesi.Location = new System.Drawing.Point(389, 122);
-            this.dgvOdaListesi.Name = "dgvOdaListesi";
-            this.dgvOdaListesi.RowHeadersWidth = 51;
-            this.dgvOdaListesi.RowTemplate.Height = 24;
-            this.dgvOdaListesi.Size = new System.Drawing.Size(339, 414);
-            this.dgvOdaListesi.TabIndex = 5;
-            // 
-            // txtOdaNumarasi
-            // 
-            this.txtOdaNumarasi.Location = new System.Drawing.Point(165, 203);
-            this.txtOdaNumarasi.Name = "txtOdaNumarasi";
-            this.txtOdaNumarasi.Size = new System.Drawing.Size(100, 22);
-            this.txtOdaNumarasi.TabIndex = 6;
-            // 
-            // cmbOdaTipi
-            // 
-            this.cmbOdaTipi.FormattingEnabled = true;
-            this.cmbOdaTipi.Items.AddRange(new object[] {
-            "Standart",
-            "Deluxe",
-            "Suit"});
-            this.cmbOdaTipi.Location = new System.Drawing.Point(165, 257);
-            this.cmbOdaTipi.Name = "cmbOdaTipi";
-            this.cmbOdaTipi.Size = new System.Drawing.Size(121, 24);
-            this.cmbOdaTipi.TabIndex = 7;
+            this.btnMusaitlikDolulukDurumuu.Location = new System.Drawing.Point(838, 284);
+            this.btnMusaitlikDolulukDurumuu.Name = "btnMusaitlikDolulukDurumuu";
+            this.btnMusaitlikDolulukDurumuu.Size = new System.Drawing.Size(159, 43);
+            this.btnMusaitlikDolulukDurumuu.TabIndex = 8;
+            this.btnMusaitlikDolulukDurumuu.Text = "Müsaitlik DolulukDurumuunu Otomatikleştir";
+            this.btnMusaitlikDolulukDurumuu.UseVisualStyleBackColor = true;
             // 
             // lblOdaNumarasi
             // 
             this.lblOdaNumarasi.AutoSize = true;
-            this.lblOdaNumarasi.Location = new System.Drawing.Point(53, 206);
+            this.lblOdaNumarasi.Location = new System.Drawing.Point(90, 123);
             this.lblOdaNumarasi.Name = "lblOdaNumarasi";
             this.lblOdaNumarasi.Size = new System.Drawing.Size(94, 16);
-            this.lblOdaNumarasi.TabIndex = 8;
+            this.lblOdaNumarasi.TabIndex = 9;
             this.lblOdaNumarasi.Text = "Oda Numarası";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(53, 265);
+            this.label1.Location = new System.Drawing.Point(90, 182);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 16);
-            this.label1.TabIndex = 9;
+            this.label1.TabIndex = 10;
             this.label1.Text = "Oda Tipi";
+            // 
+            // txtOdaTipi
+            // 
+            this.txtOdaTipi.Location = new System.Drawing.Point(202, 179);
+            this.txtOdaTipi.Name = "txtOdaTipi";
+            this.txtOdaTipi.Size = new System.Drawing.Size(100, 22);
+            this.txtOdaTipi.TabIndex = 11;
+            // 
+            // txtToplamTutar
+            // 
+            this.txtToplamTutar.Location = new System.Drawing.Point(202, 240);
+            this.txtToplamTutar.Name = "txtToplamTutar";
+            this.txtToplamTutar.Size = new System.Drawing.Size(100, 22);
+            this.txtToplamTutar.TabIndex = 12;
             // 
             // OdaDetayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1275, 765);
+            this.ClientSize = new System.Drawing.Size(1197, 664);
+            this.Controls.Add(this.txtToplamTutar);
+            this.Controls.Add(this.txtOdaTipi);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblOdaNumarasi);
-            this.Controls.Add(this.cmbOdaTipi);
             this.Controls.Add(this.txtOdaNumarasi);
             this.Controls.Add(this.dgvOdaListesi);
-            this.Controls.Add(this.btnMusaitlikDurumu);
-            this.Controls.Add(this.btnTemizlikDurumu);
+            this.Controls.Add(this.btnMusaitlikDolulukDurumuu);
+            this.Controls.Add(this.btnTemizlikDolulukDurumuu);
             this.Controls.Add(this.btnOdaSil);
             this.Controls.Add(this.btnOdaEkle);
             this.Controls.Add(this.lblOdaİslemleri);
             this.Name = "OdaDetayForm";
-            this.Text = "OdaDetayForm";
+            this.Text = "Oda Yönetimi";
             ((System.ComponentModel.ISupportInitialize)(this.dgvOdaListesi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numToplamTutar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,15 +174,17 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblOdaİslemleri;
-        private System.Windows.Forms.Button btnOdaEkle;
-        private System.Windows.Forms.Button btnOdaSil;
-        private System.Windows.Forms.Button btnTemizlikDurumu;
-        private System.Windows.Forms.Button btnMusaitlikDurumu;
         private System.Windows.Forms.DataGridView dgvOdaListesi;
         private System.Windows.Forms.TextBox txtOdaNumarasi;
-        private System.Windows.Forms.ComboBox cmbOdaTipi;
+        private System.Windows.Forms.NumericUpDown numToplamTutar;
+        private System.Windows.Forms.Button btnOdaEkle;
+        private System.Windows.Forms.Button btnOdaSil;
+        private System.Windows.Forms.Button btnTemizlikDolulukDurumuu;
+        private System.Windows.Forms.Label lblOdaİslemleri;
+        private System.Windows.Forms.Button btnMusaitlikDolulukDurumuu;
         private System.Windows.Forms.Label lblOdaNumarasi;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtOdaTipi;
+        private System.Windows.Forms.TextBox txtToplamTutar;
     }
 }

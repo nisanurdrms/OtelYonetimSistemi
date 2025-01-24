@@ -10,7 +10,7 @@ namespace OtelYonetimSistemi.SERVICE
 {
     public class YoneticiService
     {
-        private readonly string connectionString = "Server=172.21.54.253;Database=25_132330003;Username=25_132330003;Password=Sifre123;";
+        private readonly string connectionString = "Server=172.21.54.253;Database=25_132330003;Username=25_132330003;Password=Deneme123!;";
 
         public bool GirisKontrol(string adminName, string adminSifre)
         {

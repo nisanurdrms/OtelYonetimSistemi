@@ -14,7 +14,7 @@ namespace OtelYonetimSistemi.DOMAIN
         public int? FaturaID { get; set; }
         public DateTime GirisTarihi { get; set; }
         public DateTime CikisTarihi { get; set; }
-        public string RezervasyonDurumu { get; set; }
+        public string RezervasyonDolulukDurumuu { get; set; }
         public decimal ToplamTutar { get; set; }
 
         
