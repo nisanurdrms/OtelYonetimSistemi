@@ -61,10 +61,6 @@
             // cmbOdaTipi
             // 
             this.cmbOdaTipi.FormattingEnabled = true;
-            this.cmbOdaTipi.Items.AddRange(new object[] {
-            "Standart",
-            "Deluxe",
-            "Suit"});
             this.cmbOdaTipi.Location = new System.Drawing.Point(195, 269);
             this.cmbOdaTipi.Name = "cmbOdaTipi";
             this.cmbOdaTipi.Size = new System.Drawing.Size(135, 24);

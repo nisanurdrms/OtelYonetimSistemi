@@ -15,9 +15,11 @@ namespace OtelYonetimSistemi.UI
 {
     public partial class RezervasyonForm : Form
     {
+        private OdaDetayForm odaDetayForm;
         public RezervasyonForm()
         {
             InitializeComponent();
+            this.odaDetayForm = odaDetayForm;
             LoadRoomTypes();
         }
 
@@ -55,21 +57,15 @@ namespace OtelYonetimSistemi.UI
         {
             try
             {
-                cmbOdaNumarasi.Items.Clear(); // Önceki listeyi temizle
-
                 using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
                 {
-                    string query = "SELECT odaNumarasi FROM oda WHERE odaTipi = @RoomType AND dolulukDolulukDurumuu = 'Boş'";
+                    string query = "SELECT DISTINCT odaNumarasi FROM oda";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        command.Parameters.AddWithValue("@RoomType", roomType);
-
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                cmbOdaNumarasi.Items.Add(reader["odaNumarasi"].ToString());
-                            }
+                            cmbOdaNumarasi.Items.Add(reader["odaNumarasi"].ToString());
                         }
                     }
                 }
@@ -79,6 +75,42 @@ namespace OtelYonetimSistemi.UI
                 MessageBox.Show("Oda numaraları yüklenirken hata oluştu: " + ex.Message);
             }
         }
+        public List<string> GetAvailableRoomNumbers(string roomType)
+        {
+            List<string> availableRoomNumbers = new List<string>();
+            try
+            {
+                using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
+                {
+                    // Fetch room numbers that are available ('Boş') and match the selected room type
+                    string query = "SELECT odaNumarasi FROM oda WHERE odaTipi = @RoomType AND dolulukDurumu = 'Boş'";
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@RoomType", roomType);
+
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                availableRoomNumbers.Add(reader["odaNumarasi"].ToString());
+                            }
+                        }
+                    }
+                }
+
+                if (availableRoomNumbers.Count == 0)
+                {
+                    MessageBox.Show("Bu türde müsait oda yok.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Oda numaraları yüklenirken hata oluştu: " + ex.Message);
+            }
+
+            return availableRoomNumbers;
+        }
+
 
 
         private void CalculateTotalAmount()

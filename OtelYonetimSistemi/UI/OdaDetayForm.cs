@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using OtelYonetimSistemi.DAL;
 using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace OtelYonetimSistemi.UI
 {
@@ -224,5 +225,9 @@ namespace OtelYonetimSistemi.UI
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+       
+
+
     }
 }
