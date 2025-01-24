@@ -10,8 +10,8 @@ namespace OtelYonetimSistemi.DOMAIN
     {
         public int MusteriID { get; set; }
         public string AdSoyad { get; set; }
-        public string TelNumarasi { get; set; }
-        public string OdaNumarasi { get; set; }
+        public int TelNumarasi { get; set; }
+        public int OdaNumarasi { get; set; }
         public DateTime? GirisTarihi { get; set; }
         public DateTime? CikisTarihi { get; set; }
         public bool FaturaDolulukDurumu { get; set; }

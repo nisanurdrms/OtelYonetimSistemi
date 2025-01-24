@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using MySql.Data.MySqlClient;
 using OtelYonetimSistemi.DAL;
+using OtelYonetimSistemi.DOMAIN;
+using OtelYonetimSistemi.SERVICE;
 
 namespace OtelYonetimSistemi.UI
 {
@@ -22,6 +24,33 @@ namespace OtelYonetimSistemi.UI
             this.odaDetayForm = odaDetayForm;
             LoadRoomTypes();
         }
+
+        public void PopulateRoomNumbers()
+        {
+            string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;"; // Bağlantı dizginizi buraya yazın.
+            string query = "SELECT odaNumarasi FROM oda";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    cmbOdaNumarasi.Items.Clear();
+                    while (reader.Read())
+                    {
+                        cmbOdaNumarasi.Items.Add(reader["odaNumarasi"].ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hata: " + ex.Message);
+                }
+            }
+        }
+
 
         private void LoadRoomTypes()
         {

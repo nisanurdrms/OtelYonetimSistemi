@@ -54,6 +54,7 @@
             this.dgvOdaListesi.RowTemplate.Height = 24;
             this.dgvOdaListesi.Size = new System.Drawing.Size(831, 311);
             this.dgvOdaListesi.TabIndex = 0;
+            this.dgvOdaListesi.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOdaListesi_CellContentClick);
             // 
             // txtOdaNumarasi
             // 
@@ -150,6 +151,7 @@
             this.txtToplamTutar.Name = "txtToplamTutar";
             this.txtToplamTutar.Size = new System.Drawing.Size(100, 22);
             this.txtToplamTutar.TabIndex = 12;
+            this.txtToplamTutar.TextChanged += new System.EventHandler(this.txtToplamTutar_TextChanged);
             // 
             // lblOdaFiyati
             // 
@@ -179,6 +181,7 @@
             this.Controls.Add(this.lblOdaİslemleri);
             this.Name = "OdaDetayForm";
             this.Text = "Oda Yönetimi";
+            this.Load += new System.EventHandler(this.OdaDetayForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOdaListesi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numToplamTutar)).EndInit();
             this.ResumeLayout(false);

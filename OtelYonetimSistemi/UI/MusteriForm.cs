@@ -10,132 +10,228 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using OtelYonetimSistemi.DAL;
 
-
 namespace OtelYonetimSistemi.UI
+{
+    public partial class MusteriForm : Form
     {
-        public partial class MusteriForm : Form
+        private readonly MusteriDAO musteriDAO;
+
+        public MusteriForm()
         {
-            public MusteriForm()
-            {
-                InitializeComponent();
-                LoadCustomers(); // Form açıldığında müşteri bilgilerini yükle
-            }
+            InitializeComponent();
+            musteriDAO = new MusteriDAO();
+            MusterileriYukle();
+        }
 
-            // Müşteri bilgilerini DataGridView'e yükleme
-            private void LoadCustomers()
-            {
-                try
-                {
-                    using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
-                    {
-                        string query = "SELECT musteriID, adSoyad, telNumarasi, odaNumarasi, girisTarihi, cikisTarihi, faturaDurumu FROM musteri";
-                        using (MySqlCommand command = new MySqlCommand(query, connection))
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            dgvMusteri.Rows.Clear(); // Önceki verileri temizle
-                            while (reader.Read())
-                            {
-                                dgvMusteri.Rows.Add(reader["musteriID"].ToString(),
-                                    reader["adSoyad"].ToString(),
-                                    reader["telNumarasi"].ToString(),
-                                    reader["odaNumarasi"].ToString(),
-                                    Convert.ToDateTime(reader["girisTarihi"]).ToString("yyyy-MM-dd"),
-                                    Convert.ToDateTime(reader["cikisTarihi"]).ToString("yyyy-MM-dd"),
-                                    reader["faturaDurumu"].ToString());
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Müşteriler yüklenirken hata oluştu: " + ex.Message);
-                }
-            }
+        public void PopulateRoomNumbers()
+        {
+            string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;"; // Bağlantı dizginizi buraya yazın.
+            string query = "SELECT odaNumarasi FROM oda";
 
-            // Yeni müşteri ekleme
-            private void btnMusteriEkle_Click(object sender, EventArgs e)
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
-                    using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
+                    connection.Open();
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    cmbOdaNumarasi.Items.Clear();
+                    while (reader.Read())
                     {
-                        string query = "INSERT INTO musteri (adSoyad, telNumarasi, odaNumarasi, girisTarihi, cikisTarihi, faturaDurumu) " +
-                                       "VALUES (@AdSoyad, @TelNumarasi, @OdaNumarasi, @GirisTarihi, @CikisTarihi, 'Bekliyor')";
-                        using (MySqlCommand command = new MySqlCommand(query, connection))
-                        {
-                            command.Parameters.AddWithValue("@AdSoyad", txtAdSoyad.Text);
-                            command.Parameters.AddWithValue("@TelNumarasi", txtTelNumarasi.Text);
-                            command.Parameters.AddWithValue("@OdaNumarasi", cmbOdaNumarasi.SelectedItem?.ToString());
-                            command.Parameters.AddWithValue("@GirisTarihi", dtpGirisTarihi.Value);
-                            command.Parameters.AddWithValue("@CikisTarihi", dtpCikisTarihi.Value);
-
-                            command.ExecuteNonQuery();
-                        }
+                        cmbOdaNumarasi.Items.Add(reader["odaNumarasi"].ToString());
                     }
-
-                    LoadCustomers(); // Yeni müşteri ekledikten sonra listeyi güncelle
-                    MessageBox.Show("Müşteri başarıyla eklendi.");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Hata: " + ex.Message);
                 }
             }
+        }
 
-            
+        private void MusterileriYukle()
+        {
+            try
+            {
+                using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
+                {
+                    string query = "SELECT musteriID as 'Müşteri ID', adSoyad as 'Ad Soyad', " +
+                                 "telNumarasi as 'Telefon' FROM musteri ORDER BY adSoyad";
 
-            
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dgvMusteri.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Müşteriler yüklenirken hata oluştu: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+
+        private void dgvMusteriler_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvMusteri.SelectedRows.Count > 0)
+            {
+                txtAdSoyad.Text = dgvMusteri.SelectedRows[0].Cells["Ad Soyad"].Value.ToString();
+                txtTelNumarasi.Text = dgvMusteri.SelectedRows[0].Cells["Telefon"].Value.ToString();
+            }
+        }
+
+        private void FormuTemizle()
+        {
+            txtAdSoyad.Clear();
+            txtTelNumarasi.Clear();
+            txtAdSoyad.Focus();
+        }
+
+        private void btnMusteriEkle_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtAdSoyad.Text) ||
+                    string.IsNullOrWhiteSpace(txtTelNumarasi.Text))
+                {
+                    MessageBox.Show("Lütfen tüm alanları doldurun!", "Uyarı",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
+                {
+                    string query = "INSERT INTO musteri (adSoyad, telNumarasi) VALUES (@ad, @tel)";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ad", txtAdSoyad.Text);
+                        cmd.Parameters.AddWithValue("@tel", txtTelNumarasi.Text);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Müşteri başarıyla eklendi.", "Bilgi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                FormuTemizle();
+                MusterileriYukle(); // Tabloyu yenile
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Müşteri eklenirken hata oluştu: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void btnGuncelle_Click_1(object sender, EventArgs e)
         {
+
             try
             {
-                int musteriID = Convert.ToInt32(dgvMusteri.CurrentRow.Cells["musteriID"].Value);
-                string query = "UPDATE musteri SET adSoyad = @AdSoyad, telNumarasi = @TelNumarasi, odaNumarasi = @OdaNumarasi, girisTarihi = @GirisTarihi, cikisTarihi = @CikisTarihi WHERE musteriID = @MusteriID";
-
-                using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+                if (dgvMusteri.SelectedRows.Count == 0)
                 {
-                    command.Parameters.AddWithValue("@MusteriID", musteriID);
-                    command.Parameters.AddWithValue("@AdSoyad", txtAdSoyad.Text);
-                    command.Parameters.AddWithValue("@TelNumarasi", txtTelNumarasi.Text);
-                    command.Parameters.AddWithValue("@OdaNumarasi", cmbOdaNumarasi.SelectedItem?.ToString());
-                    command.Parameters.AddWithValue("@GirisTarihi", dtpGirisTarihi.Value);
-                    command.Parameters.AddWithValue("@CikisTarihi", dtpCikisTarihi.Value);
-
-                    command.ExecuteNonQuery();
+                    MessageBox.Show("Lütfen güncellenecek müşteriyi seçin!", "Uyarı",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
-                LoadCustomers(); // Listeyi güncelle
-                MessageBox.Show("Müşteri başarıyla güncellendi.");
+                int musteriID = Convert.ToInt32(dgvMusteri.SelectedRows[0].Cells["Müşteri ID"].Value);
+
+                using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
+                {
+                    string query = "UPDATE musteri SET adSoyad = @ad, telNumarasi = @tel " +
+                                 "WHERE musteriID = @id";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ad", txtAdSoyad.Text);
+                        cmd.Parameters.AddWithValue("@tel", txtTelNumarasi.Text);
+                        cmd.Parameters.AddWithValue("@id", musteriID);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Müşteri başarıyla güncellendi.", "Bilgi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                FormuTemizle();
+                MusterileriYukle(); // Tabloyu yenile
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hata: " + ex.Message);
+                MessageBox.Show("Müşteri güncellenirken hata oluştu: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnSil_Click_1(object sender, EventArgs e)
+        private void btnSil_Click(object sender, EventArgs e)
         {
             try
             {
-                int musteriID = Convert.ToInt32(dgvMusteri.CurrentRow.Cells["musteriID"].Value);
-                string query = "DELETE FROM musteri WHERE musteriID = @MusteriID";
-
-                using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+                if (dgvMusteri.SelectedRows.Count == 0)
                 {
-                    command.Parameters.AddWithValue("@MusteriID", musteriID);
-                    command.ExecuteNonQuery();
+                    MessageBox.Show("Lütfen silinecek müşteriyi seçin!", "Uyarı",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
-                LoadCustomers(); // Listeyi güncelle
-                MessageBox.Show("Müşteri başarıyla silindi.");
+                if (MessageBox.Show("Seçili müşteriyi silmek istediğinize emin misiniz?",
+                    "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    int musteriID = Convert.ToInt32(dgvMusteri.SelectedRows[0].Cells["Müşteri ID"].Value);
+
+                    using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
+                    {
+                        // Önce müşterinin rezervasyonu var mı kontrol et
+                        string checkQuery = "SELECT COUNT(*) FROM rezervasyon WHERE musteriID = @id";
+                        using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
+                        {
+                            checkCmd.Parameters.AddWithValue("@id", musteriID);
+                            int rezervasyonSayisi = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                            if (rezervasyonSayisi > 0)
+                            {
+                                MessageBox.Show("Bu müşteriye ait rezervasyon(lar) bulunmaktadır. " +
+                                    "Önce rezervasyonları silmelisiniz.", "Uyarı",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+
+                        // Rezervasyon yoksa müşteriyi sil
+                        string deleteQuery = "DELETE FROM musteri WHERE musteriID = @id";
+                        using (MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, conn))
+                        {
+                            deleteCmd.Parameters.AddWithValue("@id", musteriID);
+                            deleteCmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    MessageBox.Show("Müşteri başarıyla silindi.", "Bilgi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    FormuTemizle();
+                    MusterileriYukle(); // Tabloyu yenile
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hata: " + ex.Message);
+                MessageBox.Show("Müşteri silinirken hata oluştu: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void txtTelNumarasi_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbOdaNumarasi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
+    
+    
 }

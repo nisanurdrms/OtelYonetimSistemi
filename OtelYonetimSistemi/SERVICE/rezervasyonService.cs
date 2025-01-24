@@ -108,11 +108,30 @@ namespace OtelYonetimSistemi.SERVICE
             return rezervasyonlar;
         }
 
-        public bool RezervasyonEkle(int odaID, int musteriID, DateTime girisTarihi, DateTime cikisTarihi, decimal toplamTutar)
+        public bool RezervasyonEkle(Rezervasyon rezervasyon)
         {
             try
             {
-                return rezervasyonDAO.RezervasyonEkle(odaID, musteriID, girisTarihi, cikisTarihi, toplamTutar);
+                bool sonuc = rezervasyonDAO.RezervasyonEkle(
+                    rezervasyon.OdaID,
+                    rezervasyon.MusteriID,
+                    rezervasyon.GirisTarihi,
+                    rezervasyon.CikisTarihi,
+                    rezervasyon.ToplamTutar
+                );
+
+                if (sonuc)
+                {
+                    var oda = odaDAO.OdaGetir(rezervasyon.OdaID);
+                    if (oda != null)
+                    {
+                        oda.DolulukDurumu = Convert.ToBoolean("Dolu".Equals("Dolu"));
+                        oda.DolulukDurumu = true;
+                        odaDAO.OdaGuncelle(oda);
+                    }
+                }
+
+                return sonuc;
             }
             catch (Exception ex)
             {

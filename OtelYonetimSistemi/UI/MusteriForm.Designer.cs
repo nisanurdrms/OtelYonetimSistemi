@@ -92,6 +92,7 @@
             this.txtTelNumarasi.Name = "txtTelNumarasi";
             this.txtTelNumarasi.Size = new System.Drawing.Size(179, 22);
             this.txtTelNumarasi.TabIndex = 5;
+            this.txtTelNumarasi.TextChanged += new System.EventHandler(this.txtTelNumarasi_TextChanged);
             // 
             // label1
             // 
@@ -109,6 +110,7 @@
             this.cmbOdaNumarasi.Name = "cmbOdaNumarasi";
             this.cmbOdaNumarasi.Size = new System.Drawing.Size(121, 24);
             this.cmbOdaNumarasi.TabIndex = 7;
+            this.cmbOdaNumarasi.SelectedIndexChanged += new System.EventHandler(this.cmbOdaNumarasi_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -144,7 +146,7 @@
             this.btnSil.TabIndex = 11;
             this.btnSil.Text = "Sil";
             this.btnSil.UseVisualStyleBackColor = true;
-            this.btnSil.Click += new System.EventHandler(this.btnSil_Click_1);
+            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
             // MusteriForm
             // 
