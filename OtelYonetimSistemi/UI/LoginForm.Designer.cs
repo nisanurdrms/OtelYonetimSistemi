@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.btnGiris = new System.Windows.Forms.Button();
             this.pnlLogin = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -118,10 +119,15 @@
             // 
             // picLogo
             // 
+            this.picLogo.BackColor = System.Drawing.Color.Transparent;
+            this.picLogo.BackgroundImage = global::OtelYonetimSistemi.Properties.Resources.thrs;
+            this.picLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picLogo.ErrorImage = ((System.Drawing.Image)(resources.GetObject("picLogo.ErrorImage")));
+            this.picLogo.InitialImage = ((System.Drawing.Image)(resources.GetObject("picLogo.InitialImage")));
             this.picLogo.Location = new System.Drawing.Point(145, 20);
             this.picLogo.Name = "picLogo";
             this.picLogo.Size = new System.Drawing.Size(100, 100);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picLogo.TabIndex = 6;
             this.picLogo.TabStop = false;
             // 

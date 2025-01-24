@@ -12,7 +12,7 @@ namespace OtelYonetimSistemi.DOMAIN
         public int RezervasyonID { get; set; }
         public DateTime OlusturulmaTarihi { get; set; }
         public decimal ToplamTutar { get; set; }
-        public bool OdenmeDolulukDurumuu { get; set; }
+        public bool OdenmeDurumu { get; set; }
 
         public Rezervasyon Rezervasyon { get; set; }
     }
