@@ -47,18 +47,13 @@
             this.lblAktifRezervasyon = new System.Windows.Forms.Label();
             this.flpOdalar = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlRezervasyonlar = new System.Windows.Forms.Panel();
-            this.dgvRezervayonlar = new System.Windows.Forms.DataGridView();
-            this.OdaNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MusteriAdSoyad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GirisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CikisTarihi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DolulukDurumu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRezervasyonlar = new System.Windows.Forms.DataGridView();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.pnlOdalar.SuspendLayout();
             this.flpOdalar.SuspendLayout();
             this.pnlRezervasyonlar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRezervayonlar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRezervasyonlar)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -213,7 +208,7 @@
             this.flpOdalar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.flpOdalar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flpOdalar.Controls.Add(this.pnlRezervasyonlar);
-            this.flpOdalar.Controls.Add(this.dgvRezervayonlar);
+            this.flpOdalar.Controls.Add(this.dgvRezervasyonlar);
             this.flpOdalar.Location = new System.Drawing.Point(289, 40);
             this.flpOdalar.Name = "flpOdalar";
             this.flpOdalar.Size = new System.Drawing.Size(840, 583);
@@ -228,72 +223,15 @@
             this.pnlRezervasyonlar.Size = new System.Drawing.Size(311, 581);
             this.pnlRezervasyonlar.TabIndex = 4;
             // 
-            // dgvRezervayonlar
+            // dgvRezervasyonlar
             // 
-            this.dgvRezervayonlar.AllowUserToAddRows = false;
-            this.dgvRezervayonlar.AllowUserToDeleteRows = false;
-            this.dgvRezervayonlar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRezervayonlar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.OdaNo,
-            this.MusteriAdSoyad,
-            this.GirisTarihi,
-            this.CikisTarihi,
-            this.DolulukDurumu});
-            this.dgvRezervayonlar.Location = new System.Drawing.Point(320, 3);
-            this.dgvRezervayonlar.MultiSelect = false;
-            this.dgvRezervayonlar.Name = "dgvRezervayonlar";
-            this.dgvRezervayonlar.ReadOnly = true;
-            this.dgvRezervayonlar.RowHeadersWidth = 51;
-            this.dgvRezervayonlar.RowTemplate.Height = 24;
-            this.dgvRezervayonlar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRezervayonlar.Size = new System.Drawing.Size(494, 578);
-            this.dgvRezervayonlar.TabIndex = 5;
-            // 
-            // OdaNo
-            // 
-            this.OdaNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.OdaNo.FillWeight = 22.212F;
-            this.OdaNo.HeaderText = "Oda No";
-            this.OdaNo.MinimumWidth = 20;
-            this.OdaNo.Name = "OdaNo";
-            this.OdaNo.ReadOnly = true;
-            this.OdaNo.Width = 83;
-            // 
-            // MusteriAdSoyad
-            // 
-            this.MusteriAdSoyad.FillWeight = 106.9519F;
-            this.MusteriAdSoyad.HeaderText = "Müşteri";
-            this.MusteriAdSoyad.MinimumWidth = 35;
-            this.MusteriAdSoyad.Name = "MusteriAdSoyad";
-            this.MusteriAdSoyad.ReadOnly = true;
-            this.MusteriAdSoyad.Width = 119;
-            // 
-            // GirisTarihi
-            // 
-            this.GirisTarihi.FillWeight = 100.7523F;
-            this.GirisTarihi.HeaderText = "Giriş Tarihi";
-            this.GirisTarihi.MinimumWidth = 6;
-            this.GirisTarihi.Name = "GirisTarihi";
-            this.GirisTarihi.ReadOnly = true;
-            this.GirisTarihi.Width = 113;
-            // 
-            // CikisTarihi
-            // 
-            this.CikisTarihi.FillWeight = 84.16649F;
-            this.CikisTarihi.HeaderText = "Çıkış Tarihi";
-            this.CikisTarihi.MinimumWidth = 6;
-            this.CikisTarihi.Name = "CikisTarihi";
-            this.CikisTarihi.ReadOnly = true;
-            this.CikisTarihi.Width = 94;
-            // 
-            // DolulukDurumu
-            // 
-            this.DolulukDurumu.FillWeight = 185.9173F;
-            this.DolulukDurumu.HeaderText = "DolulukDurumu";
-            this.DolulukDurumu.MinimumWidth = 6;
-            this.DolulukDurumu.Name = "DolulukDurumu";
-            this.DolulukDurumu.ReadOnly = true;
-            this.DolulukDurumu.Width = 207;
+            this.dgvRezervasyonlar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRezervasyonlar.Location = new System.Drawing.Point(320, 3);
+            this.dgvRezervasyonlar.Name = "dgvRezervasyonlar";
+            this.dgvRezervasyonlar.RowHeadersWidth = 51;
+            this.dgvRezervasyonlar.RowTemplate.Height = 24;
+            this.dgvRezervasyonlar.Size = new System.Drawing.Size(465, 330);
+            this.dgvRezervasyonlar.TabIndex = 5;
             // 
             // MainForm
             // 
@@ -317,7 +255,7 @@
             this.flpOdalar.ResumeLayout(false);
             this.pnlRezervasyonlar.ResumeLayout(false);
             this.pnlRezervasyonlar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRezervayonlar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRezervasyonlar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,7 +268,6 @@
         private System.Windows.Forms.Panel pnlOdalar;
         private System.Windows.Forms.FlowLayoutPanel flpOdalar;
         private System.Windows.Forms.Panel pnlRezervasyonlar;
-        private System.Windows.Forms.DataGridView dgvRezervayonlar;
         private System.Windows.Forms.Label lblOdaDolulukDurumu;
         private System.Windows.Forms.Label lblAktifRezervasyon;
         private System.Windows.Forms.ToolStripMenuItem menuDosya;
@@ -344,11 +281,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuGelirRaporu;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.Button btnOda;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OdaNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MusteriAdSoyad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GirisTarihi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CikisTarihi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DolulukDurumu;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dgvRezervasyonlar;
     }
 }

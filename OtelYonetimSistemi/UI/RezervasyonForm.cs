@@ -169,90 +169,62 @@ namespace OtelYonetimSistemi.UI
         }
         private void btnRezervasyonYap_Click(object sender, EventArgs e)
         {
-            // Get user input
-            DateTime checkInDate = dtpGirisTarihi.Value;
-            DateTime checkOutDate = dtpCikisTarihi.Value;
-            string roomNumber = cmbOdaNumarasi.SelectedItem?.ToString();
-            string roomType = cmbOdaTipi.SelectedItem?.ToString() ?? "Belirtilmedi";
-            string customerName = txtAdSoyad.Text.Trim();
-            string phoneNumber = txtTelNumarasi.Text.Trim();
-
-            // Validate input
-            if (checkOutDate <= checkInDate)
-            {
-                MessageBox.Show("Çıkış tarihi giriş tarihinden sonra olmalıdır.");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(roomNumber))
-            {
-                MessageBox.Show("Lütfen bir oda numarası seçin.");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(customerName) || string.IsNullOrEmpty(phoneNumber))
-            {
-                MessageBox.Show("Lütfen müşteri bilgilerini eksiksiz doldurun.");
-                return;
-            }
-
-            int roomId = GetRoomIDByRoomNumber(roomNumber);
-            if (roomId == 0)
-            {
-                MessageBox.Show("Seçilen oda numarasına ait oda bulunamadı.");
-                return;
-            }
-
-            decimal totalAmount = 0; // Default total amount
-            CalculateTotalAmount(); // Optionally calculate total amount
-
             try
             {
-                using (MySqlConnection connection = dbBaglanti.BaglantiGetir())
+                // Girişleri kontrol et
+                if (string.IsNullOrEmpty(txtAdSoyad.Text) || string.IsNullOrEmpty(txtTelNumarasi.Text) ||
+                    cmbOdaNumarasi.SelectedItem == null || cmbOdaTipi.SelectedItem == null)
                 {
-                    MySqlTransaction transaction = connection.BeginTransaction();
-                    try
+                    MessageBox.Show("Lütfen tüm alanları doldurun!", "Uyarı",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Müşteriyi ekle ve ID'sini al
+                using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
+                {
+                    string musteriQuery = @"INSERT INTO musteri (adSoyad, telNumarasi) 
+                                          VALUES (@adSoyad, @telNo); 
+                                          SELECT LAST_INSERT_ID();";
+                    
+                    using (MySqlCommand cmd = new MySqlCommand(musteriQuery, conn))
                     {
-                        // Insert into the customer table
-                        string customerQuery = "INSERT INTO musteri (adSoyad, telNumarasi, odaNumarasi, girisTarihi, cikisTarihi) " +
-                                               "VALUES (@Name, @Phone, @RoomNumber, @CheckInDate, @CheckOutDate)";
-                        MySqlCommand customerCommand = new MySqlCommand(customerQuery, connection, transaction);
-                        customerCommand.Parameters.AddWithValue("@Name", customerName);
-                        customerCommand.Parameters.AddWithValue("@Phone", phoneNumber);
-                        customerCommand.Parameters.AddWithValue("@RoomNumber", roomNumber);
-                        customerCommand.Parameters.AddWithValue("@CheckInDate", checkInDate);
-                        customerCommand.Parameters.AddWithValue("@CheckOutDate", checkOutDate);
-                        customerCommand.ExecuteNonQuery();
+                        cmd.Parameters.AddWithValue("@adSoyad", txtAdSoyad.Text);
+                        cmd.Parameters.AddWithValue("@telNo", txtTelNumarasi.Text);
+                        int musteriID = Convert.ToInt32(cmd.ExecuteScalar());
 
-                        // Insert into the reservation table
-                        string reservationQuery = "INSERT INTO rezervasyon (odaID, girisTarihi, cikisTarihi, toplamTutar) " +
-                                                  "VALUES (@RoomID, @CheckInDate, @CheckOutDate, @TotalAmount)";
-                        MySqlCommand reservationCommand = new MySqlCommand(reservationQuery, connection, transaction);
-                        reservationCommand.Parameters.AddWithValue("@RoomID", roomId);
-                        reservationCommand.Parameters.AddWithValue("@CheckInDate", checkInDate);
-                        reservationCommand.Parameters.AddWithValue("@CheckOutDate", checkOutDate);
-                        reservationCommand.Parameters.AddWithValue("@TotalAmount", totalAmount);
-                        reservationCommand.ExecuteNonQuery();
+                        // Rezervasyon nesnesini oluştur
+                        var rezervasyon = new Rezervasyon
+                        {
+                            OdaID = GetRoomIDByRoomNumber(cmbOdaNumarasi.SelectedItem.ToString()),
+                            MusteriID = musteriID,
+                            GirisTarihi = dtpGirisTarihi.Value,
+                            CikisTarihi = dtpCikisTarihi.Value,
+                            ToplamTutar = Convert.ToDecimal(lblToplamTutar.Text.Replace("₺", "").Trim())
+                        };
 
-                        // Update the room status to "full"
-                        string roomUpdateQuery = "UPDATE oda SET dolulukDurumu = 'Dolu' WHERE odaID = @RoomID";
-                        MySqlCommand roomUpdateCommand = new MySqlCommand(roomUpdateQuery, connection, transaction);
-                        roomUpdateCommand.Parameters.AddWithValue("@RoomID", roomId);
-                        roomUpdateCommand.ExecuteNonQuery();
+                        // Rezervasyonu ekle
+                        RezervasyonService rezervasyonService = new RezervasyonService();
+                        bool sonuc = rezervasyonService.RezervasyonEkle(rezervasyon);
 
-                        transaction.Commit();
-                        MessageBox.Show("Rezervasyon başarıyla tamamlandı ve oda durumu güncellendi.");
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        MessageBox.Show("Rezervasyon sırasında bir hata oluştu: " + ex.Message);
+                        if (sonuc)
+                        {
+                            MessageBox.Show("Rezervasyon başarıyla oluşturuldu!", "Başarılı",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Rezervasyon oluşturulurken bir hata oluştu!", "Hata",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Veritabanına bağlanırken bir hata oluştu: " + ex.Message);
+                MessageBox.Show("Rezervasyon işlemi sırasında bir hata oluştu: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

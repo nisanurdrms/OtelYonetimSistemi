@@ -14,6 +14,6 @@ namespace OtelYonetimSistemi.DOMAIN
         public string OdaNumarasi { get; set; }
         public DateTime? GirisTarihi { get; set; }
         public DateTime? CikisTarihi { get; set; }
-        public bool FaturaDolulukDurumuu { get; set; }
+        public bool FaturaDolulukDurumu { get; set; }
     }
 }

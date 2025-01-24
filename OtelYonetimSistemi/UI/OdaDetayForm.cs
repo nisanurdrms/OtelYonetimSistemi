@@ -20,6 +20,12 @@ namespace OtelYonetimSistemi.UI
             LoadRooms(); // Load rooms from the database
         }
 
+        public OdaDetayForm()  // Constructor'ı parametresiz yap
+        {
+            InitializeComponent();
+            LoadRooms();
+        }
+
         // Set up the DataGridView columns
         private void DataGridViewiAyarla()
         {

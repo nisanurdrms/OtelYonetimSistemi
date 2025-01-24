@@ -6,36 +6,100 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using OtelYonetimSistemi.DOMAIN;
+using System.Data;
+using System.Windows.Forms;
 
 namespace OtelYonetimSistemi.DAL
 {
     public class RezervasyonDAO
     {
-        public bool RezervasyonEkle(Rezervasyon rezervasyon)
+        public DataTable RezervasyonGetir()
         {
-            using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
+            DataTable dt = new DataTable();
+            try
             {
-                try
+                using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
                 {
-                    conn.Open();
-                    string sql = "INSERT INTO rezervasyon (musteriID, odaID, girisTarihi, cikisTarihi, " +
-                               "rezervasyonDolulukDurumuu, toplamTutar) VALUES (@musteriID, @odaID, @girisTarihi, " +
-                               "@cikisTarihi, @rezervasyonDolulukDurumuu, @toplamTutar)";
+                    string query = @"SELECT 
+                                   r.rezervasyonID as 'Rezervasyon No',
+                                   m.adSoyad as 'Müşteri',
+                                   m.telNumarasi as 'Telefon',
+                                   o.odaNumarasi as 'Oda No',
+                                   r.girisTarihi as 'Giriş Tarihi',
+                                   r.cikisTarihi as 'Çıkış Tarihi',
+                                   r.toplamTutar as 'Toplam Tutar',
+                                   r.odaID as 'OdaID'
+                                   FROM rezervasyon r
+                                   JOIN musteri m ON r.musteriID = m.musteriID
+                                   JOIN oda o ON r.odaID = o.odaID
+                                   ORDER BY r.girisTarihi DESC";
 
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@musteriID", rezervasyon.MusteriID);
-                    cmd.Parameters.AddWithValue("@odaID", rezervasyon.OdaID);
-                    cmd.Parameters.AddWithValue("@girisTarihi", rezervasyon.GirisTarihi);
-                    cmd.Parameters.AddWithValue("@cikisTarihi", rezervasyon.CikisTarihi);
-                    cmd.Parameters.AddWithValue("@rezervasyonDolulukDurumuu", rezervasyon.RezervasyonDolulukDurumuu);
-                    cmd.Parameters.AddWithValue("@toplamTutar", rezervasyon.ToplamTutar);
-
-                    return cmd.ExecuteNonQuery() > 0;
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn))
+                    {
+                        adapter.Fill(dt);
+                    }
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Rezervasyon bilgileri getirilirken hata oluştu: " + ex.Message,
+                    "Veritabanı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return dt;
+        }
+
+        public bool RezervasyonEkle(int odaID, int musteriID, DateTime girisTarihi, 
+            DateTime cikisTarihi, decimal toplamTutar)
+        {
+            try
+            {
+                using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
                 {
-                    throw new Exception("Rezervasyon eklenirken hata oluştu: " + ex.Message);
+                    string query = @"INSERT INTO rezervasyon 
+                                   (odaID, musteriID, girisTarihi, cikisTarihi, toplamTutar)
+                                   VALUES 
+                                   (@odaID, @musteriID, @girisTarihi, @cikisTarihi, @toplamTutar)";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@odaID", odaID);
+                        cmd.Parameters.AddWithValue("@musteriID", musteriID);
+                        cmd.Parameters.AddWithValue("@girisTarihi", girisTarihi);
+                        cmd.Parameters.AddWithValue("@cikisTarihi", cikisTarihi);
+                        cmd.Parameters.AddWithValue("@toplamTutar", toplamTutar);
+
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Rezervasyon eklenirken hata oluştu: " + ex.Message,
+                    "Veritabanı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        public bool RezervasyonSil(int rezervasyonID)
+        {
+            try
+            {
+                using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
+                {
+                    string query = "DELETE FROM rezervasyon WHERE rezervasyonID = @rezervasyonID";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@rezervasyonID", rezervasyonID);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Rezervasyon silinirken hata oluştu: " + ex.Message,
+                    "Veritabanı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
@@ -65,7 +129,6 @@ namespace OtelYonetimSistemi.DAL
                                 OdaID = reader.GetInt32("odaID"),
                                 GirisTarihi = reader.GetDateTime("girisTarihi"),
                                 CikisTarihi = reader.GetDateTime("cikisTarihi"),
-                                RezervasyonDolulukDurumuu = reader.GetString("rezervasyonDolulukDurumuu"),
                                 ToplamTutar = reader.GetDecimal("toplamTutar"),
                                 Musteri = new Musteri { AdSoyad = reader.GetString("adSoyad") },
                                 Oda = new Oda { OdaNumarasi = reader.GetString("odaNumarasi") }
@@ -79,6 +142,11 @@ namespace OtelYonetimSistemi.DAL
                     throw new Exception("Rezervasyon getirilirken hata oluştu: " + ex.Message);
                 }
             }
+        }
+
+        internal static bool RezervasyonEkle(Rezervasyon rezervasyon)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using OtelYonetimSistemi.SERVICE;
 using OtelYonetimSistemi.DOMAIN;
 using OtelYonetimSistemi.UI;
+using OtelYonetimSistemi.DAL;  
 
 namespace OtelYonetimSistemi
 {
@@ -35,15 +36,15 @@ namespace OtelYonetimSistemi
             lblStatus.Text = $"Son güncelleme: {DateTime.Now:dd.MM.yyyy HH:mm:ss}";
         }
 
-        private void RezervasyonlariYukle()
+       private void RezervasyonlariYukle()
         {
             try
             {
                 RezervasyonDAO rezervasyonDAO = new RezervasyonDAO();
                 var rezervasyonlar = rezervasyonDAO.RezervasyonGetir();
 
-                dgvRezervasyonlar.DataSource = rezervasyonlar; // DataGridView'e bağla
-                dgvRezervasyonlar.Columns["OdaID"].Visible = false; // Gerekli olmayan kolonları gizle
+                dgvRezervasyonlar.DataSource = rezervasyonlar; 
+                dgvRezervasyonlar.Columns["OdaID"].Visible = false; 
                 dgvRezervasyonlar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (Exception ex)
@@ -52,7 +53,7 @@ namespace OtelYonetimSistemi
                     "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+       
 
         private void OdalariYukle()
         {
@@ -81,7 +82,14 @@ namespace OtelYonetimSistemi
                     };
 
                     flpOdalar.Controls.Add(btnOda); // FlowLayoutPanel'e butonu ekle
-
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Odalar yüklenirken hata oluştu: " + ex.Message,
+                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
                     private void menuCikis_Click(object sender, EventArgs e)
         {
@@ -93,18 +101,28 @@ namespace OtelYonetimSistemi
         }
 
         
-        private void menuOdaYonetimi_Click(object sender, EventArgs e)
+        public void menuOdaYonetimi_Click(object sender, EventArgs e)
         {
-            if (odaDetayForm == null || odaDetayForm.IsDisposed) 
+            try
             {
-                string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;"; 
-                OdaDetayForm odaDetayForm = new OdaDetayForm(connectionString);
-                odaDetayForm.Show();
-
+                using (var connection = dbBaglanti.BaglantiGetir())
+                {
+                    if (connection != null)
+                    {
+                        OdaDetayForm odaDetayForm = new OdaDetayForm();
+                        odaDetayForm.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Veritabanına bağlanılamadı!", "Bağlantı Hatası",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                odaDetayForm.BringToFront(); 
+                MessageBox.Show($"Form açılırken hata oluştu: {ex.Message}", "Hata",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -38,7 +38,7 @@ namespace OtelYonetimSistemi.SERVICE
             rezervasyon.ToplamTutar = gunlukToplamTutar * gunSayisi;
 
             
-            bool sonuc = rezervasyonDAO.RezervasyonEkle(rezervasyon);
+            bool sonuc = RezervasyonDAO.RezervasyonEkle(rezervasyon);
             if (sonuc)
             {
                 
@@ -49,13 +49,14 @@ namespace OtelYonetimSistemi.SERVICE
             return sonuc;
         }
 
+
+
         public bool RezervasyonIptal(int rezervasyonID)
         {
             Rezervasyon rezervasyon = rezervasyonDAO.RezervasyonGetir(rezervasyonID);
             if (rezervasyon == null)
                 throw new Exception("Rezervasyon bulunamadı!");
 
-            rezervasyon.RezervasyonDolulukDurumuu = "İptal";
 
             
             Oda oda = odaDAO.OdaGetir(rezervasyon.OdaID);
@@ -68,12 +69,11 @@ namespace OtelYonetimSistemi.SERVICE
         public List<Rezervasyon> TumRezervasyonlariGetir()
         {
             List<Rezervasyon> rezervasyonlar = new List<Rezervasyon>();
-            
             try
             {
                 using (MySqlConnection conn = dbBaglanti.BaglantiGetir())
                 {
-                    string query = @"SELECT r.rezervasyonID, r.odaID, r.girisTarihi, r.cikisTarihi, 
+                    string query = @"SELECT r.rezervasyonID, r.odaID, r.musteriID, r.girisTarihi, r.cikisTarihi, 
                                    r.toplamTutar, m.adSoyad, m.telNumarasi, o.odaNumarasi 
                                    FROM rezervasyon r 
                                    JOIN musteri m ON r.musteriID = m.musteriID 
@@ -88,6 +88,7 @@ namespace OtelYonetimSistemi.SERVICE
                             {
                                 RezervasyonID = Convert.ToInt32(reader["rezervasyonID"]),
                                 OdaID = Convert.ToInt32(reader["odaID"]),
+                                MusteriID = Convert.ToInt32(reader["musteriID"]),
                                 GirisTarihi = Convert.ToDateTime(reader["girisTarihi"]),
                                 CikisTarihi = Convert.ToDateTime(reader["cikisTarihi"]),
                                 ToplamTutar = Convert.ToDecimal(reader["toplamTutar"]),
@@ -105,6 +106,32 @@ namespace OtelYonetimSistemi.SERVICE
             }
 
             return rezervasyonlar;
+        }
+
+        public bool RezervasyonEkle(int odaID, int musteriID, DateTime girisTarihi, DateTime cikisTarihi, decimal toplamTutar)
+        {
+            try
+            {
+                return rezervasyonDAO.RezervasyonEkle(odaID, musteriID, girisTarihi, cikisTarihi, toplamTutar);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Rezervasyon eklenirken hata oluştu: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool RezervasyonSil(int rezervasyonID)
+        {
+            try
+            {
+                return rezervasyonDAO.RezervasyonSil(rezervasyonID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Rezervasyon silinirken hata oluştu: " + ex.Message);
+                return false;
+            }
         }
     }
 }
