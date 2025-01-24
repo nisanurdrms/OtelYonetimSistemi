@@ -33,7 +33,7 @@
             this.numToplamTutar = new System.Windows.Forms.NumericUpDown();
             this.btnOdaEkle = new System.Windows.Forms.Button();
             this.btnOdaSil = new System.Windows.Forms.Button();
-            this.btnTemizlikDolulukDurumuu = new System.Windows.Forms.Button();
+            this.btnOdaTemizlik = new System.Windows.Forms.Button();
             this.lblOdaİslemleri = new System.Windows.Forms.Label();
             this.btnMusaitlikDolulukDurumuu = new System.Windows.Forms.Button();
             this.lblOdaNumarasi = new System.Windows.Forms.Label();
@@ -71,12 +71,13 @@
             // 
             // btnOdaEkle
             // 
-            this.btnOdaEkle.Location = new System.Drawing.Point(212, 294);
+            this.btnOdaEkle.Location = new System.Drawing.Point(199, 294);
             this.btnOdaEkle.Name = "btnOdaEkle";
-            this.btnOdaEkle.Size = new System.Drawing.Size(75, 23);
+            this.btnOdaEkle.Size = new System.Drawing.Size(103, 23);
             this.btnOdaEkle.TabIndex = 4;
             this.btnOdaEkle.Text = "Oda Ekle";
             this.btnOdaEkle.UseVisualStyleBackColor = true;
+            this.btnOdaEkle.Click += new System.EventHandler(this.btnOdaEkle_Click);
             // 
             // btnOdaSil
             // 
@@ -86,15 +87,17 @@
             this.btnOdaSil.TabIndex = 5;
             this.btnOdaSil.Text = "Oda Sil";
             this.btnOdaSil.UseVisualStyleBackColor = true;
+            this.btnOdaSil.Click += new System.EventHandler(this.btnOdaSil_Click);
             // 
-            // btnTemizlikDolulukDurumuu
+            // btnOdaTemizlik
             // 
-            this.btnTemizlikDolulukDurumuu.Location = new System.Drawing.Point(838, 199);
-            this.btnTemizlikDolulukDurumuu.Name = "btnTemizlikDolulukDurumuu";
-            this.btnTemizlikDolulukDurumuu.Size = new System.Drawing.Size(159, 46);
-            this.btnTemizlikDolulukDurumuu.TabIndex = 6;
-            this.btnTemizlikDolulukDurumuu.Text = "Temizlik DolulukDurumuu Değiştir";
-            this.btnTemizlikDolulukDurumuu.UseVisualStyleBackColor = true;
+            this.btnOdaTemizlik.Location = new System.Drawing.Point(838, 199);
+            this.btnOdaTemizlik.Name = "btnOdaTemizlik";
+            this.btnOdaTemizlik.Size = new System.Drawing.Size(159, 46);
+            this.btnOdaTemizlik.TabIndex = 6;
+            this.btnOdaTemizlik.Text = "Temizlik Durumu";
+            this.btnOdaTemizlik.UseVisualStyleBackColor = true;
+            this.btnOdaTemizlik.Click += new System.EventHandler(this.btnodaTemizlik_Click);
             // 
             // lblOdaİslemleri
             // 
@@ -159,7 +162,7 @@
             this.Controls.Add(this.txtOdaNumarasi);
             this.Controls.Add(this.dgvOdaListesi);
             this.Controls.Add(this.btnMusaitlikDolulukDurumuu);
-            this.Controls.Add(this.btnTemizlikDolulukDurumuu);
+            this.Controls.Add(this.btnOdaTemizlik);
             this.Controls.Add(this.btnOdaSil);
             this.Controls.Add(this.btnOdaEkle);
             this.Controls.Add(this.lblOdaİslemleri);
@@ -179,7 +182,7 @@
         private System.Windows.Forms.NumericUpDown numToplamTutar;
         private System.Windows.Forms.Button btnOdaEkle;
         private System.Windows.Forms.Button btnOdaSil;
-        private System.Windows.Forms.Button btnTemizlikDolulukDurumuu;
+        private System.Windows.Forms.Button btnOdaTemizlik;
         private System.Windows.Forms.Label lblOdaİslemleri;
         private System.Windows.Forms.Button btnMusaitlikDolulukDurumuu;
         private System.Windows.Forms.Label lblOdaNumarasi;
