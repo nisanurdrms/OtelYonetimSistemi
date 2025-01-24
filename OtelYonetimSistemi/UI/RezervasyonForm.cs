@@ -23,6 +23,38 @@ namespace OtelYonetimSistemi.UI
             InitializeComponent();
             this.odaDetayForm = odaDetayForm;
             LoadRoomTypes();
+
+        }
+
+        private void RezervasyonForm_Load(object sender, EventArgs e)
+        {
+            PopulateRoomTypes();
+        }
+
+        private void PopulateRoomTypes()
+        {
+            string connectionString = "Server=172.21.54.253;Database=25_132330003;User=25_132330003;Password=Deneme123!;";// Veritabanı bağlantı dizesini buraya yaz.
+            string query = "SELECT DISTINCT odaTipi FROM oda";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    cmbOdaTipi.Items.Clear();
+                    while (reader.Read())
+                    {
+                        cmbOdaTipi.Items.Add(reader["odaTipi"].ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hata: " + ex.Message);
+                }
+            }
         }
 
         public void PopulateRoomNumbers()
@@ -77,11 +109,34 @@ namespace OtelYonetimSistemi.UI
 
         private void cmbOdaTipi_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Check if a room type is selected
-            if (cmbOdaTipi.SelectedItem != null)
+            string selectedRoomType = cmbOdaTipi.SelectedItem.ToString();
+            PopulateRoomNumbers(selectedRoomType);
+        }
+
+        private void PopulateRoomNumbers(string roomType)
+        {
+            string connectionString = "your_connection_string_here"; // Veritabanı bağlantı dizesini buraya ekle.
+            string query = "SELECT RoomNumber FROM Rooms WHERE RoomType = @RoomType";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string selectedRoomType = cmbOdaTipi.SelectedItem.ToString();
-                LoadRoomNumbers(selectedRoomType); // Load available room numbers
+                try
+                {
+                    connection.Open();
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@RoomType", roomType);
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    cmbOdaNumarasi.Items.Clear();
+                    while (reader.Read())
+                    {
+                        cmbOdaNumarasi.Items.Add(reader["RoomNumber"].ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hata: " + ex.Message);
+                }
             }
         }
 
@@ -289,6 +344,8 @@ namespace OtelYonetimSistemi.UI
         {
 
         }
+
+       
     }
 }
                 

@@ -183,6 +183,7 @@
             this.Controls.Add(this.dtpGirisTarihi);
             this.Name = "RezervasyonForm";
             this.Text = "RezervasyonDetayForm";
+            this.Load += new System.EventHandler(this.RezervasyonForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
